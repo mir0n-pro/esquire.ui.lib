@@ -1,0 +1,19 @@
+esquire.ui node.js library of components
+
+v1.0.2-2512.2511
+   - refine project structure
+   - piblished as npm package
+   - no code changes
+
+v1.0.1-2512.2420 Esquire API and types generalization
+   - frontend and backend 
+   - Esquire API and types generalization
+     : kind parameter is requried for esq-cmd, esq-enode
+     : value types: number instead of double, added integer, datetime, tabstring
+     : listvalues_kind moved inside of generic format
+     : added processing of 'tabstring' field type
+
+v1.0.0-2512.1716  initial version 
+
+     
+
