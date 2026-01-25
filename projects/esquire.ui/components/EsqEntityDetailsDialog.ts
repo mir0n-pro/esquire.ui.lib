@@ -32,6 +32,7 @@ import { CommonModule } from '@angular/common'
 import {MatTableModule } from '@angular/material/table';
 import { EsqTabListComponent } from "./EsqTabListComponent";
 import { EsqTabLStringComponent } from "./EsqTabStringComponent";
+/*
 import { EsqNodeType
   , EsqNodeTypeFactory
   , EsqRestApi
@@ -40,6 +41,15 @@ import { EsqNodeType
   , EsqExplorerCallApi
   , EsqDictionaryApi, EsqEntityLayer 
 } from '@mir0n-pro/esquire.ui/api';
+*/
+import {EsqNodeType} from 'src/esquire.ui/api/EsqNodeTypeFactory';
+import {EsqNodeTypeFactory} from 'src/esquire.ui/api/EsqNodeTypeFactory';
+import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
+import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
+import {EsqNodeStatusFactory} from 'src/esquire.ui/api/EsqNodeStatusFactory';
+import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
+import {EsqDictionaryApi} from 'src/esquire.ui/api/EsqDictionaryApi';
+import {EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
 
   @Component({
   selector: 'details-dialog',

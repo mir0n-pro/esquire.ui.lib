@@ -9,8 +9,13 @@
 import {CollectionViewer, DataSource } from "@angular/cdk/collections";
 import {BehaviorSubject, firstValueFrom, Observable} from 'rxjs';
 import {EsqTreeViewDatasource} from './EsqTreeViewDatasource';
+/*
 import {EsqTreeNode, EsqColumnHeaderDef} from '@mir0n-pro/esquire.ui/api';
 import {EsqUtils} from '@mir0n-pro/esquire.ui/components';
+*/
+import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
+import {EsqColumnHeaderDef} from 'src/esquire.ui/api/EsqNodeTypeFactory';
+import {EsqUtils} from 'src/esquire.ui/components/EsqUtils';
 
 export class EsqListViewDatasource implements DataSource<EsqTreeNode> {
   private static DEFAULT_HEADER:EsqColumnHeaderDef[] =  [{columnDef:"name", header:"Name"}]; 

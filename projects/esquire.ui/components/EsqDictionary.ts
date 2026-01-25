@@ -8,11 +8,17 @@
 * 12/24/2025 mir0n debug log added
 */
 import { from, lastValueFrom, Observable, of} from 'rxjs';
+/*
 import { EsqDictionaryApi
     , EsqEntityDictionary
     , EsqEntityLayer
     , EsqRestApi
 } from '@mir0n-pro/esquire.ui/api';
+*/
+import {EsqDictionaryApi} from 'src/esquire.ui/api/EsqDictionaryApi';
+import {EsqEntityDictionary} from 'src/esquire.ui/api/EsqEntityDictionary';
+import {EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
+import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi'; 
 import {EsqUtils} from './EsqUtils';
 
 

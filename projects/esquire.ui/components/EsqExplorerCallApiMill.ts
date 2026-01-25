@@ -11,11 +11,17 @@ import { firstValueFrom } from "rxjs";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { EsqNodeDetailsDialog }  from "./EsqNodeDetailsDialog";
 import { EsqEntityDetailsDialog } from "./EsqEntityDetailsDialog";
+/*
 import { EsqDictionaryApi
   , EsqExplorerCallApi
   , EsqRestApi
   , EsqTreeNode 
 } from "@mir0n-pro/esquire.ui/api";
+*/
+import {EsqDictionaryApi} from 'src/esquire.ui/api/EsqDictionaryApi';
+import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
+import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
+import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
 
 export class EsqExplorerCallApiMill {
   dialog:MatDialog;

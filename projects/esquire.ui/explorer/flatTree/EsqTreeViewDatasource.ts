@@ -8,8 +8,13 @@
 */
 import {CollectionViewer, DataSource } from "@angular/cdk/collections";
 import {BehaviorSubject, firstValueFrom, Observable} from 'rxjs';
+/*
 import {EsqTreeNode, EsqRestApi} from '@mir0n-pro/esquire.ui/api';
 import {EsqUtils} from '@mir0n-pro/esquire.ui/components';
+*/
+import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
+import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
+import {EsqUtils} from 'src/esquire.ui/components/EsqUtils';
 
 export class EsqTreeViewDatasource implements DataSource<EsqTreeNode> {
   private SIZE_REQUESTED = 10;

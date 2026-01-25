@@ -30,6 +30,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+/*
 import { EsqRestApi
   , AsEsqTreeNodePipe
   , EsqTreeNode
@@ -38,6 +39,17 @@ import { EsqRestApi
   , EsqNodeStatusFactory 
 } from '@mir0n-pro/esquire.ui/api';
 import { EsqResizeDirective, EsqUtils} from '@mir0n-pro/esquire.ui/components';
+*/
+import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
+import {AsEsqTreeNodePipe}  from 'src/esquire.ui/api/AsEsqTreeNodePipe';
+import {EsqTreeNode}  from 'src/esquire.ui/api/EsqTreeNode';
+import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
+import {EsqColumnHeaderDef} from 'src/esquire.ui/api/EsqNodeTypeFactory';
+import {EsqNodeStatusFactory} from 'src/esquire.ui/api/EsqNodeStatusFactory';
+import {EsqResizeDirective} from 'src/esquire.ui/components/EsqResizeDirective';
+import {EsqUtils} from 'src/esquire.ui/components/EsqUtils';
+
+
 import { EsqFlatTreeDatasource } from './EsqFlatTreeDatasource';
 
 
@@ -118,6 +130,9 @@ export class EsqExplorerComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.esqRestApi) {
       console.error("No esqRestApi defined");
     }
+    
+//--- todo catch exception : somehow it calls the server without parames
+
     this.datasource = new EsqFlatTreeDatasource(this.esqRestApi as EsqRestApi);
     await this.datasource.loadInitialData();
     this.listNodeOwner = this.datasource.data4tree[0];

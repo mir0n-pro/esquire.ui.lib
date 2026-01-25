@@ -8,33 +8,36 @@
 */
 import {AfterViewInit, 
   Component, 
+  inject, 
   Inject, 
   OnDestroy,
   OnInit, 
   ViewChild, 
   ViewEncapsulation
-
 } from '@angular/core';
 import {MatButton, MatButtonModule} from '@angular/material/button';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
+import { firstValueFrom, from, lastValueFrom, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common'
 import {MatTableModule } from '@angular/material/table';
-/*
-import { EsqTreeNode , EsqNodeStatusFactory } from '@mir0n-pro/esquire.ui/api';
-*/
-import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
-import {EsqNodeStatusFactory} from 'src/esquire.ui/api/EsqNodeStatusFactory';
 
-  @Component({
+/*
+import { EsqEntityLayer } from '@mir0n-pro/esquire.ui/api';
+*/
+import {EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
+
+import { EsqTabLStringComponent} from './EsqTabStringComponent';
+
+@Component({
   selector: 'details-dialog',
-  templateUrl: './EsqNodeDetailsDialog.html',
-  styleUrl: './EsqDetailsDialog.scss',
+  templateUrl: './EsqSingleEntryDialog.html',
+  styleUrl: './EsqDetailsDialog.scss',  
   imports: [
     MatDialogModule,
     MatButtonModule,
@@ -45,30 +48,41 @@ import {EsqNodeStatusFactory} from 'src/esquire.ui/api/EsqNodeStatusFactory';
     MatTabsModule,
     MatDividerModule,
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    EsqTabLStringComponent
 ],
   encapsulation: ViewEncapsulation.None,
 })
 
 
-
-export class EsqNodeDetailsDialog implements OnInit,  AfterViewInit, OnDestroy {
+//Note: tablist filed type is not supported!!!
+export class EsqSingleEntryDialog implements OnInit,  AfterViewInit, OnDestroy {
    @ViewChild('btnClose') btnClose! : MatButton;
-   private dialogRef: MatDialogRef<EsqNodeDetailsDialog>;
-   public node : EsqTreeNode;
-   public readOnly : boolean = false;
+  
+   private dialogRef: MatDialogRef<EsqSingleEntryDialog>;
+   public readOnly: boolean = false;
+   public details: any;
+   public dictionary: EsqEntityLayer[];
+   public title: string;
+   public titleIcon: string;
+//   readonly detailsDialog:MatDialog = inject(MatDialog);   
 
   constructor(
-      dialogRef: MatDialogRef<EsqNodeDetailsDialog>, 
+      dialogRef: MatDialogRef<EsqSingleEntryDialog>, 
       @Inject(MAT_DIALOG_DATA) data: any
     ) {
       this.dialogRef = dialogRef; 
-      this.node = data.node;
+
+      this.dictionary = data.dictionary;
       this.readOnly = data.readOnly;
+      this.details = data.details;
+      this.title= data.title || "Properties";
+      this.titleIcon = data.titleIcon || "./main.ico";
+
       this.dialogRef.disableClose = true;
       this.dialogRef.addPanelClass('esq-dialog');
       this.dialogRef.updateSize('60vw', '60vh'); 
-  }      
+    }      
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -85,9 +99,10 @@ export class EsqNodeDetailsDialog implements OnInit,  AfterViewInit, OnDestroy {
        this.btnClose.focus();
     }
   }    
-
-  nodeStatusIcon() {
-    return EsqNodeStatusFactory.instanceOf(this.node.statusCode).icon;
+  
+  tabContent (index:number):string {
+    return index == 0 ? "esq-first-tab-content" :  "esq-other-tab-content";
   }
- 
+
 }
+

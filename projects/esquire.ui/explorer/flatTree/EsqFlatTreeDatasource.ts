@@ -8,9 +8,15 @@
 */
 import {EsqTreeViewDatasource} from './EsqTreeViewDatasource';
 import {EsqListViewDatasource} from './EsqListViewDatasource';
+/*
 import {EsqRestApi, EsqTreeNode} from '@mir0n-pro/esquire.ui/api';
 import {EsqUtils} from '@mir0n-pro/esquire.ui/components';
+*/
+import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
+import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
+import {EsqUtils} from 'src/esquire.ui/components/EsqUtils';
 
+import { Observable } from 'rxjs';
 export class EsqFlatTreeDatasource {
     public tree: EsqTreeViewDatasource;
     public list: EsqListViewDatasource;

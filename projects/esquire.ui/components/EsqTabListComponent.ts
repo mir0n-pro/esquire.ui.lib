@@ -22,8 +22,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common'
 import {MatTableModule, MatTableDataSource, MatRow } from '@angular/material/table';
 import { DataSource } from '@angular/cdk/collections';
+/*  
 import { EsqNodeType, EsqExplorerCallApi } from '@mir0n-pro/esquire.ui/api';
-
+*/
+import {EsqNodeType} from 'src/esquire.ui/api/EsqNodeTypeFactory';
+import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
 
   @Component({
   selector: 'esq-tab-list',
