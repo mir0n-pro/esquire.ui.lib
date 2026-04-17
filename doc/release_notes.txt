@@ -1,0 +1,265 @@
+esquire.ui node.js library of components
+
+--- merged with esquire\explorer project ---
+v1.2.2-2604.1712 Tuning of field types: image, tablist
+
+v1.2.2-2604.1515  EsqObjectKindFactory: pass kind title from server; add login-hint background
+
+v1.2.2-2604.1422  Unit tests were added
+   separated for esquire.ui and app levels
+
+v1.2.2-2604.1420  Acct Transaction Phase IV: Transfer acct operation with dest picker and paper-account guard
+  :Feature:     EsqTransferDialog — second account picker; same-account validation
+  :Improvement: EsqAcctDialog protected hooks (onDictionaryLoaded, focusOnInit, validateExtra, extraConfirmLines)
+  :Fix:         findByEntityId expression; onSelect() kind normalization; Transfer DICT_KIND corrected
+
+v1.2.2-2604.1319 Acct operations expansion: Deposit/Withdrawal submenu; AmountEffect validation
+
+v1.2.2-2604.1219 Account picker; generic entity select dialog; EsqMoveDialog refactor
+
+v1.2.2-2604.1017 Externalize acct command as custom
+
+v1.2.2-2604.0920 Acct deposit command: dialog with dictionary-driven fields, entity refresh, continuous operation
+
+v1.2.2-2604.0820 Generalization of "loading" indicator; debug delay centralized 
+
+v1.2.2-2604.0711  Kind normalization refactor; REST API facade update
+   :Kind:
+      EsqObjectKindFactory.normalize() — single normalization point replacing scattered inline
+   :REST:
+      Removed acct-specific endpoint routing (esquireCmdAdel/Anew/Asave)
+      esquireCmdDel/New/Save now handle all entity kinds uniformly
+   : added doc\kind.context.md
+
+v1.2.2-2604.0221 Refactoring of menu command handle; Elimination of double HTTP request
+        
+v1.2.2-2603.3121  Move command; ESC close for all dialogs
+   : Move: EsqMoveDialog — org-only tree, confirm, keyboard nav, ESC/X close
+   : canCmdClick(): cannot move yourself (entityId === profile.id)
+   : REST: esquireCmdMove POST /esq-move (kind, id, dist_id)
+   : ESC closes all dialogs with Close/X button
+
+v1.2.2-2603.3012  Synch with keyCloak esquire theme; UI/UX cleanup
+   : Explorer layout fix; 
+   : Login hint callout; 
+   : Confirm dialog keyboard nav
+
+v1.2.2-2603.2818  Inject dictionary defaults in create entity dialog
+
+v1.2.2-2603.2814  Delete command
+
+v1.2.2-2603.2712  Windows style dialog resize + position/size persistence per user
+
+v1.2.2-2603.2621  Styled confirm/alert dialog replaces browser alert()/confirm()
+  :EsqConfirmDialog:
+     New component: Ok (alert), YesNo, OkCancel modes via ConfirmFlag enum
+
+v1.2.2-2603.2618  Create entity dialog, bypass error message to shell footer
+  :Create:
+     EsqCreateEntityDialog: two-phase Create→Edit dialog extending EsqEntityDetailsDialog
+     onCreate(): validates main + subentity fields; POSTs via esquireCmdNew/esquireCmdAnew
+     on success: transitions to edit mode; triggers tree refresh and selects new entity
+  :REST:
+     esquireCmdNew (/esq-new), esquireCmdAnew (/esq-anew): create entity endpoints
+     esquireCmdDel (/esq-del), esquireCmdAdel (/esq-adel): delete entity endpoints
+     EsqRestApi interface: esquireCmdNew added
+     app-explorer: esquireCmdNew() routes to /esq-anew for acct kinds, /esq-new otherwise
+  :Permissions:
+     canCreateKind(): isCommandAllowed(CMD_NEW) gates New submenu items
+  :EsqExplorerHost:
+     onTreeRefreshSelect(), setErrorMessage() added to interface and implemented
+     Mill doExplorerCreate: handles treeRefreshSelect → host.onTreeRefreshSelect(entityId)
+     Mill doExplorerCreate: onError callback → host.setErrorMessage() propagates dialog errors to UI
+  :Fix:
+     onCreate(): subentity validation loop added (same pattern as onSave())
+     onCreate(): early return removed; restructured as if/else
+     closeConfirmMessage() hook: overridable; create mode says "continue with creation"
+
+v1.2.2-2603.2019  tree auto refresh on update of important fields + few fixes
+  :EsqExplorerHost:
+     new interface with onTreeRefresh(); EsqExplorerCallApi extended with registerHost()
+     EsqExplorerComponent self-registers as host in ngOnInit()
+  :affects3:
+     EsqEntityDictionary: affects3 optional field from JSON
+     EsqEntityDetailsDialog: detects affects3 changes (incl. subentities); passes 'treeRefresh' on close
+     EsqExplorerCallApiMill: fires host.onTreeRefresh() with 250ms delay on 'treeRefresh' result
+  :Fix:
+     fallback to gotoTreeNode when focused link-variant node has no server path
+  :Fix:
+     EsqNodeDetailsDialog: givenEntityKind normalized to even — handles link-variant (odd) kinds
+
+v1.2.2-2603.1917  Fix: Entity kind normalization
+
+v1.2.2-2603.1620  saving flag; subscribe cleanup
+  :saving:
+     EsqAccessProfileDialog, EsqEntityDetailsDialog: saving flag prevents double-click Save
+     Save button disabled while request is in progress
+  :cleanup:
+     app-explorer.component.ts: let → var convention; subscribe error blocks removed
+
+v1.2.2-2603.1017  debug skip flags for development testing
+  :DEBUG_SKIP_VALIDATION:
+     EsqUtils: DEBUG_SKIP_VALIDATION and DEBUG_SKIP_PERMISSION static flags
+     validateFields() returns null immediately when DEBUG_SKIP_VALIDATION is set
+  :DEBUG_SKIP_PERMISSION:
+     EsqAccessProfile: import EsqUtils for flag access
+     isCommandAllowed() returns true immediately when DEBUG_SKIP_PERMISSION is set
+  3 doc drafts added:
+     :fieldType.md
+     :permissions.md
+     :validations.md 
+
+v1.2.2-2603.0918  Race condition fixes
+  :NG0100 ExpressionChangedAfterItHasBeenChecked:
+     profile converted to Angular signal
+     faceIcon() and faceName() now reactive — no stale values during change detection
+  :CallApiMill not initialized:
+     callApiMill and dictionary initialized synchronously before async EsqObjectKindFactory.init()
+     profile load can no longer race ahead of component initialization
+
+v1.2.2-2603.0618  Server-side validation error handling; ikn-list refresh fix
+  :Server validation errors:
+     saveData catchError handles RFC 7807 errors[] from backend
+     alert shows server error message; focus moves to invalid field and tab
+     focusField deferred via setTimeout(0) to run after Angular re-render
+  :AccessProfileDialog double-subscribe fix:
+     second details$ async pipe replaced with details property
+     prevents duplicate HTTP save requests on error
+  :Error Report dialog:
+     errors[] array JSON.stringify'd before display (was showing [object Object])
+     added "Validation Errors" tab in ProblemDetail dictionary
+  :IKN list refresh fix:
+     ngOnChanges rebuilds list when esqListElements changes externally (Refresh button)
+     self-emitted changes (add/remove) skip rebuild to preserve focused row
+
+v1.2.2-2603.0315  Add/Remove roles; text field type
+  :complete the list tab with add button dropdown menu
+  :Array change detection
+  :Text field type
+  :Keyboard-accessible clear button
+  :ProblemDetail:
+     title and detail field types changed from 'string' to 'text' (multi-line textarea)
+  :gateway use default port
+  :comment out sort buttons in the list tab
+
+v1.2.2-2603.0120
+  Wait for initial access profile load
+
+v1.2.3-2603.0115  date field type; null change-detection fix
+  :Null change detection fix:
+  :Date field:
+     native <input type="date"> (Angular Material datepicker skipped: breaks grid structure)
+
+v1.2.2-2602.2819  Sub-entity rendering; dialog inheritance; tab restore
+  :Sub-entity inline rendering
+  :Dictionary proactive loading
+  :Dialog inheritance
+  :Tab restore after Save/Refresh
+  :Error handling in dialogs
+  :Null option fix:
+     select placeholder options use value=null instead of value="" for correct null detection
+
+v1.2.2-2602.1817  Wire Save to REST
+  :Save entity changes:
+     POST /esq-cmd-save for general entities, POST /esq-cmd-asave for account entities
+     routed by EsqObjectKind.acct flag in the wrapper
+  :Save access profile:
+     POST /esq-key-save for access profile changes
+  :OpenAPI spec:
+     added EsqEntity schema (id + kind + additionalProperties)
+     3 new POST endpoints: esquireCmdSave, esquireCmdAsave, esquireKeySave
+     input and output both use typed schemas (EsqEntity / EsqAccessProfile)
+  :Dialog onSave:
+     all 3 detail dialogs wired to REST; save error shown via alert()
+     originalDetails updated only on success, dialog stays open on failure
+     unsaved changes confirmation on Close (OK to save, Cancel to discard)
+  :Field validation on Save:
+     required field check, string pattern validation, number min/max validation
+     focus moves to invalid field and tab on error
+     EsqValidationError type, data-field attributes on all inputs for focus
+  :Change tracking:
+     deepCopy, getChangedFields utility methods in EsqUtils
+     AccessProfile fix: removed async alias in template, use component property
+  :isCommandAllowed:
+     entity_id param with personal mode (own profile always editable)
+     kind rounding for paired entity kinds
+     String() coercion for entityId/userId comparison in fieldReadOnly
+  :ProblemDetail dictionary:
+     minmax defaults set to '100' and '200'
+  :Logging:
+     console.log replaced with EsqUtils.log across components
+
+v1.2.2-2602.1700  Editable fields and access profile permissions
+  :Editable dialog fields: 
+     field editability controlled by readwrite flag, personal flag, 
+     and access profile permissions.
+  :Field types: 
+     flag (Yes/No dropdown), number (formatted), string with listvalues (dropdown)
+  :Nullable fields: 
+     placeholder with nullmeaning, clear button for text inputs, greyed-out nullmeaning in dropdowns
+  :Readonly/disabled styling: consistent across all input types, bottom border only for readonly, 
+     no border for node properties
+  :Tooltips from field.tooltip on all inputs
+  :EsqTabStringComponent: 
+     editable textarea with two-way binding, readOnly and maxLength support
+  :EsqUtils: 
+     formatNumber and parseNumber utility methods
+  :Access Profile: 
+     isolated from REST model into esquire.ui/api with EsqRole, EsqPermission classes
+  :isCommandAllowed: 
+     permission check based on admin flags per entity kind
+  :Command constants: 
+     CMD_DEFAULT, CMD_NEW, CMD_MOVE, CMD_DELETE, CMD_KEY, CMD_ACCT centralized in EsqExplorerCallApi
+  :ReadOnly flag in dialogs derived from access profile permissions instead of hardcoded
+
+1.2.2-2602.1400  Clean Name convention: kind vs type
+   :Kind is for entity/treenode objects, and type is for only any other purpose. 
+   :EsqNodeType renamed with EsqObjectKind to be in synch with services
+ 
+
+v1.2.2-2602.1322 refactoring/cleanup in progress
+  treeFlags removed from TreeNode
+  api regenerated
+
+v1.2.2-2602.1217 set of node types configured in server side
+  set of node types configured in server side, keeps ability to be defined/overwritten locally
+  added "/esq-kinds" REST API entry point
+
+
+v1.02.02-2602.0419  
+   handle KeyCloak Token Renewal events
+   generalization of dialogs : a common TabField component to handle any field type
+
+v1.02.02-2602.0419  Preparing for dialog code generalization
+   api regenerated (single object vs array)
+   Prepare for dialog code generalization
+    : Clean set of dialogs: now is clear: NodeDialog, DetailsDialog, NodeDetailsDialog, AccessProfileDialog
+    : Simplify with "name" and "kind" fields: any object is an EsqThing
+    : At start up load an Access Profile instead of User Details
+
+v1.02.01-2602.0115 Toolbar and Context Menu with Access Profile as an option)
+  rest api regenerated: added esquireKey and AccessProfile
+  added dynamic toolbar and context menu
+  cleanup keyboard actions
+  added "Access Profile" command
+  accounts in user profile are in one tab
+
+------ --------
+
+v1.0.2-2512.2511
+   - refine project structure
+   - published as npm package
+   - no code changes
+
+v1.0.1-2512.2420 Esquire API and types generalization
+   - frontend and backend 
+   - Esquire API and types generalization
+     : kind parameter is requried for esq-cmd, esq-enode
+     : value types: number instead of double, added integer, datetime, tabstring
+     : listvalues_kind moved inside of generic format
+     : added processing of 'tabstring' field type
+
+v1.0.0-2512.1716  initial version 
+
+     
+
