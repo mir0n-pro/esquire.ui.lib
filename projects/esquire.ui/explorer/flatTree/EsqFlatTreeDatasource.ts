@@ -5,24 +5,38 @@
 *  mailto:mir0n.the.programmer@gmail.com
 *
 *  History:
+* 03/20/2026 mir0n  gotoTreeNode(): navigate to tree node by id; expands ancestors
+* 03/31/2026 mir0n  getOrgNodes(): filter loaded nodes to org kind
+* 04/08/2026 mir0n  remove logDelay()
+* 04/12/2026 mir0n  implements EsqFlatTreeSelectorFactory; createFlatTreeSelector(kinds, isLeaf?); selectorsMap cache; reset clears selectors
+* 04/17/2026 mir0n  import consolidation
 */
 import {EsqTreeViewDatasource} from './EsqTreeViewDatasource';
 import {EsqListViewDatasource} from './EsqListViewDatasource';
+import {EsqSelectEntityDatasource} from './EsqSelectEntityDatasource';
+import {EsqFlatTreeSelector, EsqFlatTreeSelectorFactory} from './EsqFlatTreeSelector';
+/*
 import {EsqRestApi, EsqTreeNode} from '@mir0n-pro/esquire.ui/api';
 import {EsqUtils} from '@mir0n-pro/esquire.ui/components';
+*/
+import {
+    EsqRestApi,
+    EsqTreeNode,
+    EsqUtils
+} from '@mir0n-pro/esquire.ui/api';
 
-export class EsqFlatTreeDatasource {
+import { Observable } from 'rxjs';
+export class EsqFlatTreeDatasource implements EsqFlatTreeSelectorFactory {
     public tree: EsqTreeViewDatasource;
     public list: EsqListViewDatasource;
+    private selectorsMap = new Map<string, EsqSelectEntityDatasource>();
 
-    public constructor(api:EsqRestApi) {
-        //this.api = api;
+    public constructor(private api: EsqRestApi) {
         this.tree = new EsqTreeViewDatasource(api);
         this.list = new EsqListViewDatasource(this.tree);
     }
 
     public  async loadInitialData() {
-        await EsqUtils.logDelay(1000, 'delay loadInitialData 1s...');
         return this.tree.loadInitialData();
     }
 
@@ -34,12 +48,10 @@ export class EsqFlatTreeDatasource {
     }
 
     public async loadChildren(node: EsqTreeNode) {
-        await EsqUtils.logDelay(1000, 'delay loadChildren 1s...');
         return this.list.loadChildren(node);
     }
 
     public async toggleOnTree(node: EsqTreeNode) {
-        await EsqUtils.logDelay(1000, 'delay loadChildren 1s...');
         return this.tree.toggleNode(node);
     }
 
@@ -57,6 +69,17 @@ export class EsqFlatTreeDatasource {
    public clear () {
         this.list.clear();
         this.tree.clear();
+        this.selectorsMap.forEach(s => s.reset());
+    }
+
+    public createFlatTreeSelector(kinds: Set<number>, isLeaf?: (node: EsqTreeNode) => boolean): EsqFlatTreeSelector {
+        var key = [...kinds].sort((a, b) => a - b).join(',');
+        var cached = this.selectorsMap.get(key);
+        if (cached) return cached;
+        var bigApi: EsqRestApi = { ...this.api, esquire: (id?, skip?, _take?, opts?) => this.api.esquire(id, skip, 200, opts) };
+        var selector = new EsqSelectEntityDatasource(this.tree, bigApi, kinds, isLeaf);
+        this.selectorsMap.set(key, selector);
+        return selector;
     }
 
     public getById (id: string) : EsqTreeNode|undefined{
@@ -84,19 +107,18 @@ export class EsqFlatTreeDatasource {
     }
 
     public async gotoListNode(id: string) {
-        await EsqUtils.logDelay(1000,'delay gotoListNode 1s...');
-        EsqUtils.log('gotoListNode[');  
+        EsqUtils.log('gotoListNode[');
         const path: string[] = await this.tree.getPath(id);
         var treeNode: EsqTreeNode |undefined =undefined;
         var listNode: EsqTreeNode |undefined =undefined;
         if (path && path.length > 0) {
-            path[path.length] = id; 
+            path[path.length] = id;
             let res:any = await this.loadNodesPath(path);
             if (res instanceof EsqTreeNode) {
                 listNode = res as EsqTreeNode;
                 treeNode = listNode.parent;
             }
-        }        
+        }
         if (treeNode) {
             var treeNodes:EsqTreeNode[] =[];
             for (let i=0; i < path.length -1; i++) {
@@ -109,13 +131,39 @@ export class EsqFlatTreeDatasource {
             }
             await  this.list.loadChildren(treeNode);
         }
-        EsqUtils.log(']gotoListNode');  
+        EsqUtils.log(']gotoListNode');
         return listNode;
+    }
+
+    public async gotoTreeNode(id: string): Promise<EsqTreeNode|undefined> {
+        EsqUtils.log('gotoTreeNode[');
+        const path: string[] = await this.tree.getPath(id);
+        var treeNode: EsqTreeNode|undefined = undefined;
+        if (path && path.length > 0) {
+            path[path.length] = id;
+            let res: any = await this.loadNodesPath(path);
+            if (res instanceof EsqTreeNode) {
+                treeNode = res as EsqTreeNode;
+                for (let i = 0; i < path.length - 1; i++) {
+                    let ancestor = this.tree.getById(path[i]);
+                    if (ancestor && ancestor.expandable() && !ancestor.expanded()) {
+                        await this.tree.toggleNode(ancestor);
+                    }
+                }
+            }
+        }
+        EsqUtils.log(']gotoTreeNode');
+        return treeNode;
     }
 
     public hasMoreChildren(parent:EsqTreeNode): boolean {
         return this.tree.hasMoreChildren(parent);
-    } 
+    }
+
+    public getOrgNodes(): EsqTreeNode[] {
+        return this.tree.getAll().filter((n: EsqTreeNode) => n.kind.org);
+    }
+
 
     public async loadMoreChildren(parent: EsqTreeNode) {
         var collapse:boolean = parent.expandable() && !parent.expanded();

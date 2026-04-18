@@ -1,12 +1,17 @@
 /*
 *  Esquire frameworks (tm)
-* 
+*
 *  Copyright(c) 2001, 2025 mir0n&co www.mir0n.me
 *  mailto:mir0n.the.programmer@gmail.com
 *
 *  History:
+* 02/12/2026 mir0n  EsqNodeType in explicit file
+* 02/13/2026 mir0n  EsqNodeType renamed with EsqObjectKind
+* 02/17/2026 mir0n  use CMD_DEFAULT constant from EsqExplorerCallApi
+* 04/02/2026 mir0n  calle(): added subCmd, selectMode
+* 04/17/2026 mir0n  import consolidation
 */
-import {AfterViewInit, 
+import {AfterViewInit,
   Component, 
   ElementRef, 
   Input, 
@@ -22,8 +27,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common'
 import {MatTableModule, MatTableDataSource, MatRow } from '@angular/material/table';
 import { DataSource } from '@angular/cdk/collections';
+/*  
 import { EsqNodeType, EsqExplorerCallApi } from '@mir0n-pro/esquire.ui/api';
-
+*/
+import {EsqObjectKind, EsqExplorerCallApi} from '@mir0n-pro/esquire.ui/api';
 
   @Component({
   selector: 'esq-tab-list',
@@ -47,7 +54,7 @@ export class EsqTabListComponent implements OnInit,  AfterViewInit, OnDestroy {
   @ViewChildren(MatRow, { read: ElementRef }) matRows!: QueryList<ElementRef>; // Assuming MatRow is a directive applied to your rows
 
   @Input() public esqListElements!: string[];
-  @Input() public esqListNodeType!:EsqNodeType;
+  @Input() public esqListNodeType!:EsqObjectKind;
   @Input() public esqListHeader:string = '';
   @Input() public esqEnableAdd:boolean = false;
   @Input() public esqEnableRemove:boolean = false;
@@ -153,7 +160,7 @@ export class EsqTabListComponent implements OnInit,  AfterViewInit, OnDestroy {
     if (this.esqExplorerCallApi && !!this.esqListNodeType && this.canDetailsBtn()) {
         var el:TabListElement=this.tabListElements[this.listElementFocusedIndex];
         if(el) {
-          this.esqExplorerCallApi.calle("details",'', el.name, this.esqListNodeType.id);
+          this.esqExplorerCallApi.calle(EsqExplorerCallApi.CMD_DEFAULT, null, '', el.name, this.esqListNodeType.id, null);
         }
     }
   }

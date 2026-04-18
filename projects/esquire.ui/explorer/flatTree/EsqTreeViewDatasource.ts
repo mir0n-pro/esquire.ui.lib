@@ -5,17 +5,28 @@
 *  mailto:mir0n.the.programmer@gmail.com
 *
 *  History:
+* 02/13/2026 mir0n treeFlags removed from TreeNode
+* 03/31/2026 mir0n  getAll(): returns copy of internal node list
+* 04/17/2026 mir0n  import consolidation
 */
 import {CollectionViewer, DataSource } from "@angular/cdk/collections";
 import {BehaviorSubject, firstValueFrom, Observable} from 'rxjs';
+/*
 import {EsqTreeNode, EsqRestApi} from '@mir0n-pro/esquire.ui/api';
 import {EsqUtils} from '@mir0n-pro/esquire.ui/components';
+*/
+import {
+    EsqTreeNode,
+    EsqRestApi,
+    EsqUtils
+} from '@mir0n-pro/esquire.ui/api';
 
 export class EsqTreeViewDatasource implements DataSource<EsqTreeNode> {
   private SIZE_REQUESTED = 10;
   private dataShown = new BehaviorSubject<EsqTreeNode[]>([]);
   private dataInternal:EsqTreeNode[] = [];
   private dataTree:EsqTreeNode[] = [];
+
   private api: EsqRestApi;
 
   
@@ -91,7 +102,7 @@ export class EsqTreeViewDatasource implements DataSource<EsqTreeNode> {
               EsqUtils.log(1, "Achtung!!! more sublings, somehow, already on the tree...");
             } else {
               let grandchildren =  this.countNodesUnderTree (node, true);
-              siblings = siblings.filter((x)=>x.treeFlags.includes("B"));
+              siblings = siblings.filter((x)=>x.expandable());
               if (siblings.length > 0) {
                 this.dataTree.splice(this.dataTree.indexOf(node) + 1 + grandchildren, 0, ...siblings);
               }
@@ -193,7 +204,7 @@ export class EsqTreeViewDatasource implements DataSource<EsqTreeNode> {
             let children: EsqTreeNode[] = jsn.map((x: any) => new EsqTreeNode(x,node));
             if (children && children.length > 0 ) {
               this.dataInternal.splice(indexData + 1, 0, ...children);
-              children = children.filter((x)=>x.treeFlags.includes("B"));
+              children = children.filter((x)=>x.expandable());
               if (this.countNodesUnderTree(node,false) > 0) {
                 EsqUtils.log(indexTree,'Achtung!!! somehow children added there:',this.countNodesUnderTree(node,false));
                 this.dataShown.next(this.dataTree);
@@ -206,7 +217,7 @@ export class EsqTreeViewDatasource implements DataSource<EsqTreeNode> {
               }
             }
           } else {
-            let children = childrenData.filter((x)=>x.treeFlags.includes("B"));
+            let children = childrenData.filter((x)=>x.expandable());
             if (children.length > 0) {
               this.dataTree.splice(indexTree + 1, 0, ...children);
             }
@@ -362,5 +373,9 @@ export class EsqTreeViewDatasource implements DataSource<EsqTreeNode> {
       return this.dataInternal.filter(x => x.parentId == parent_id);
    }
 
-  
+  public getAll(): EsqTreeNode[] {
+      return [...this.dataInternal];
+  }
+
+
 }

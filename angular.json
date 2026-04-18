@@ -9,7 +9,7 @@
     "esquire.ui": {
       "projectType": "library",
       "root": "projects/esquire.ui",
-      "sourceRoot": "projects/esquire.ui/src",
+      "sourceRoot": "projects/esquire.ui",
       "prefix": "lib",
       "architect": {
         "build": {
@@ -25,9 +25,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:unit-test",
+          "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/esquire.ui/tsconfig.spec.json"
+            "tsConfig": "projects/esquire.ui/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }

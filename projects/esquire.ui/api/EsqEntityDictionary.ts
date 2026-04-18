@@ -6,21 +6,32 @@
 *
 * History :
 * 12/24/2025 mir0n listvalues_kind moved inside of generic format 
+* 02/13/2026 mir0n EsqNodeType renamed with EsqObjectKind
+* 02/17/2026 mir0n added personal, minmax fields
+*                  nullable changed from boolean to string
+* 03/20/2026 mir0n  affects3 optional field added
+* 03/28/2026 mir0n  default optional field added; mapped from jsn['default']
+* 04/07/2026 mir0n  constructor param renamed entity_kind → entityKind
 */
 export class EsqEntityField {
   name:string;              // +
   sort:number;              // x
   label:string;             // +
-  type: string;             // +/- (string, integer, number, flag, listvalues, datetime, href, tablist, tabstring, image)
+  type: string;             // +/- (string, number, flag, listvalues, date, datetime, href, tablist, tabstring, image)
   tooltip:string;           // x
   listvalues:string[];      // x in concrete order
-  nullable:boolean;         // x    
+  nullable:string;         // x
   nullmeaning:string;       // x
-  validation:string;        // x 
+  validation:string;        // x
   layer:number;             // +
   readwrite:number;         //(bitmap: 0:hidden,1:view, 3:full)
   format:string;   // +
-  constructor(jsn : any) {
+  personal:string;
+  minmax:string;   // +
+  affects3?:string;
+  default?:string;
+
+    constructor(jsn : any) {
       this.name = jsn.name;
       this.sort = jsn.sort;
       this.label = jsn.label;
@@ -33,6 +44,10 @@ export class EsqEntityField {
       this.layer = jsn.layer;
       this.readwrite = jsn.readwrite;
       this.format = jsn.format;
+      this.personal = jsn.personal;
+      this.minmax = jsn.minmax;
+      this.affects3 = jsn.affects3;
+      this.default = jsn['default']; //xxx: "default" is a reserved word
   }
 };
 
@@ -41,10 +56,10 @@ export class EsqEntityField {
 //      image
 
 export class EsqEntityDictionary {
-  kind:number;            //entity kind, same as EsqNodeType.id  
+  kind:number;            //entity kind, same as EsqObjectKind.id  
   layers:EsqEntityLayer[];  // sorted by [tab][order]
-  constructor(entity_kind : number, jsn:any) {
-    this.kind = entity_kind;
+  constructor(entityKind : number, jsn:any) {
+    this.kind = entityKind;
     this.layers = [];
     if (jsn) {
       jsn.forEach((x : any) => {

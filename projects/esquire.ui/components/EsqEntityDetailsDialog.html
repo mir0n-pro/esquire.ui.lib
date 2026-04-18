@@ -11,71 +11,53 @@
     cdkDragRootElement=".cdk-overlay-pane"
     cdkDragHandle
     cdkDragBoundary=".cdk-overlay-container"
+    [esqDialogResize]="'entity-details:' + userId"
 >
   <div>
-    <img src="{{node.type.icon}}" class="esq-base-icon"/>
-    <img src="{{nodeStatusIcon()}}" class="esq-overlay-icon" />
-    {{node.name}} 
- </div>
-  <button matIconButton mat-dialog-close class = "esq-icon-button" matTooltip = "Close">
+    @if (loading()) {
+      <span class="esq-loading-div"></span>
+    } @else {
+      <img src="{{headerIcon}}" class="esq-base-icon"/>
+    }
+  </div>
+  <div>{{headerName}}</div>
+  <button matIconButton (click)="onClose()" class = "esq-icon-button" matTooltip = "Close">
     <mat-icon>close</mat-icon>
   </button>
 </mat-toolbar>
-
 
 <mat-dialog-content >
   <mat-tab-group class="esq-mat-tab-group">
     @if (details$ | async; as details) {
       @if (dictionary$ | async; as dictionary) {
         @for (tab of dictionary; track tab.title; let i = $index;) {      
-          <mat-tab [label]="tab.title" bodyClass="{{tabContent(i)}}">
+          <mat-tab [label]="tab.title" bodyClass="{{tabContent(tab.title)}}">
             @for (field of tab.fields; track field.name) {
-              @if (field.name == "name") {
-                  <div class="esq-simple-grid2">
-                    <b>{{field.label}}:</b>{{details[field.name]}}
-                  </div>                   
-                  <mat-divider></mat-divider>
-                  <div class="esq-simple-grid2">
-                     <mat-divider></mat-divider>
-                     <mat-divider></mat-divider>
-                    <b>Node Type:</b>{{nodeTypeName()}}      
-                    <b>Node ID:</b>{{node.id}}      
-                    <b>Parent Node:</b>{{node.parent ? node.parent.name : 'n/a'}}
-                  </div>                   
-                  <mat-divider></mat-divider>
-              } @else {
-                @if (field.type == 'image') {
-                  <div class="esq-tab-image-container">
-                    <img class="esq-tab-image" src="{{details.image}}" alt="{{details.image}}" />
-                  </div>
-                  <mat-divider></mat-divider>
-                } @else if (field.type == 'href') {
-                  <div class="esq-simple-grid2">
-                    <b>{{field.label}}:</b>
-                    <a href="{{details[field.name][0]}}" target="_blank" rel="noopener noreferrer">
-                      {{details[field.name][1]}}
-                    </a>
-                  </div>                   
-                } @else if (field.type == 'tablist') {
-                  <esq-tab-list
-                    [esqListElements]="details[field.name]"
-                    [esqListNodeType]="nodeTypeFromFormat(field.format)"
-                    [esqListHeader]="field.label"
-                    [esqExplorerCallApi]="callApi"
-                  >
-                  </esq-tab-list>
-                } @else if (field.type == 'tabstring') {
-                  <esq-tab-string
-                    [value]="details[field.name]"
-                    [readOnly]=readOnly
-                  >
-                  </esq-tab-string>
-                } @else { <!--if (field.type.toLowerCase() == 'string') { -->
-                    <div class="esq-simple-grid2">
-                      <b>{{field.label}}:</b>{{details[field.name]}}
-                    </div>                   
+                @if (field.type == 'subentity') {
+                    @let sub = subdictionary(details[field.name]?.["kind"]);
+                    @if (sub[0] && sub[0].fields) {
+                        @for (subfield of sub[0].fields; track subfield.name) {
+                            @if (subfield.readwrite > 0) {
+                                <esq-tab-field
+                                    [field]=subfield
+                                    [details]=details[field.name]
+                                    [readOnly]=readOnly
+                                    [enableDetails]=true
+                                    [userId]=userId
+                                />
+                            }
+                        }
+                    }
+                } @else if (field.readwrite > 0) {
+                    <esq-tab-field
+                        [field]=field
+                        [details]=details
+                        [readOnly]=readOnly
+                        [enableDetails]=true
+                        [callApi]=callApi
+                        [userId]=userId
+                    />
                 }
-              }
             }
           </mat-tab>
         }
@@ -89,5 +71,14 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="center">
-  <button #btnClose mat-raised-button mat-dialog-close >Close</button>
+  @if (readOnly) {
+    <button #btnClose mat-raised-button mat-dialog-close>Close</button>
+  } @else if (isCreating()) {
+    <button mat-raised-button (click)="onClose()">Close</button>
+    <button #btnSave mat-raised-button (click)="onCreate()" [disabled]="saving">Create</button>
+  } @else {
+    <button mat-raised-button (click)="onClose()">Close</button>
+    <button #btnSave mat-raised-button (click)="onSave()" [disabled]="!hasChanges() || saving">Save</button>
+    <button mat-raised-button (click)="onRefresh()">Refresh</button>
+  }
 </mat-dialog-actions>

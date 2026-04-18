@@ -1,0 +1,62 @@
+<!--
+  Esquire frameworks (tm)
+
+  Copyright(c) 2001, 2025 mir0n&co www.mir0n.me
+  mailto:mir0n.the.programmer@gmail.com
+
+  History:
+-->
+<mat-toolbar class="mat-elevation-z2 esq-dialog-toolbar"
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle
+    cdkDragBoundary=".cdk-overlay-container"
+    [esqDialogResize]="resizeKey"
+>
+  <div>
+    @if (loading()) {
+      <span class="esq-loading-div"></span>
+    } @else if (headerIcon) {
+      <img [src]="headerIcon" class="esq-base-icon"/>
+    } @else {
+      <span style="width:24px;display:inline-block;"></span>
+    }
+  </div>
+  <div>{{dialogTitle}}</div>
+  <button class="esq-select-entity-close-btn" (click)="onCancel()">&#x2715;</button>
+</mat-toolbar>
+
+<div class="esq-select-entity-tree-panel">
+  <mat-tree [dataSource]="treeDs.selectDs" [levelAccessor]="treeDs.levelAccessor">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding matTreeNodePaddingIndent="16"
+        id="select-entity-node-{{node.id}}"
+        class="esq-select-entity-tree-node"
+        tabindex="0"
+        [ngClass]="{
+            'esq-select-entity-active-node': selectedNode === node,
+            'esq-select-entity-mouse-node': hoveredNode === node && selectedNode !== node
+        }"
+        (click)="onNodeClick(node)"
+        (dblclick)="onNodeDblClick(node)"
+        (keydown)="onNodeKeydown($event, node)"
+        (mouseenter)="hoveredNode = node"
+        (mouseleave)="hoveredNode = null"
+        (focus)="hoveredNode = node"
+        (blur)="hoveredNode = null">
+      @if (treeDs.isExpandable(node)) {
+        <mat-icon class="esq-select-entity-toggle-icon"
+          (click)="onToggleClick(node, $event)"
+          (dblclick)="onToggleDblClick(node, $event)">{{node.expanded() ? 'expand_more' : 'chevron_right'}}</mat-icon>
+      } @else {
+        <span style="width:24px;display:inline-block;flex-shrink:0;"></span>
+      }
+      <img [src]="node.kind.icon" class="esq-base-icon"/>
+      <span class="esq-select-entity-overlay-text">{{node.name}}</span>
+    </mat-tree-node>
+  </mat-tree>
+</div>
+
+<mat-dialog-actions align="center">
+  <button mat-raised-button [disabled]="!canSelect()" (click)="onSelect()">Select</button>
+  <button mat-raised-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>
