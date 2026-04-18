@@ -9,6 +9,7 @@
 * 03/31/2026 mir0n  getOrgNodes(): filter loaded nodes to org kind
 * 04/08/2026 mir0n  remove logDelay()
 * 04/12/2026 mir0n  implements EsqFlatTreeSelectorFactory; createFlatTreeSelector(kinds, isLeaf?); selectorsMap cache; reset clears selectors
+* 04/17/2026 mir0n  import consolidation
 */
 import {EsqTreeViewDatasource} from './EsqTreeViewDatasource';
 import {EsqListViewDatasource} from './EsqListViewDatasource';
@@ -18,9 +19,11 @@ import {EsqFlatTreeSelector, EsqFlatTreeSelectorFactory} from './EsqFlatTreeSele
 import {EsqRestApi, EsqTreeNode} from '@mir0n-pro/esquire.ui/api';
 import {EsqUtils} from '@mir0n-pro/esquire.ui/components';
 */
-import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
-import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
-import {EsqUtils} from 'src/esquire.ui/components/EsqUtils';
+import {
+    EsqRestApi,
+    EsqTreeNode,
+    EsqUtils
+} from '@mir0n-pro/esquire.ui/api';
 
 import { Observable } from 'rxjs';
 export class EsqFlatTreeDatasource implements EsqFlatTreeSelectorFactory {

@@ -10,7 +10,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { EsqExplorerComponent } from 'src/esquire.ui/explorer/flatTree/EsqExplorerComponent';
+import { EsqExplorerComponent } from '../../explorer/flatTree/EsqExplorerComponent';
 
 describe('EsqExplorerComponent', () => {
     var fixture: ComponentFixture<EsqExplorerComponent>;

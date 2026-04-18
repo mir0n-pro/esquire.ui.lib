@@ -10,12 +10,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { EsqEntityDetailsDialog } from 'src/esquire.ui/components/EsqEntityDetailsDialog';
-import { EsqRestApi } from 'src/esquire.ui/api/EsqRestApi';
-import { EsqDictionaryApi } from 'src/esquire.ui/api/EsqDictionaryApi';
-import { EsqExplorerCallApi } from 'src/esquire.ui/api/EsqExplorerCallApi';
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
-import { EsqObjectKind } from 'src/esquire.ui/api/EsqObjectKind';
+import { EsqEntityDetailsDialog } from '../../components/EsqEntityDetailsDialog';
+import { EsqRestApi } from '../../api/EsqRestApi';
+import { EsqDictionaryApi } from '../../api/EsqDictionaryApi';
+import { EsqExplorerCallApi } from '../../api/EsqExplorerCallApi';
+import { EsqObjectKindFactory } from '../../api/EsqObjectKindFactory';
+import { EsqObjectKind } from '../../api/EsqObjectKind';
 
 describe('EsqEntityDetailsDialog', () => {
     var fixture: ComponentFixture<EsqEntityDetailsDialog>;

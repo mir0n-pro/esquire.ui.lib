@@ -21,6 +21,7 @@
 *                   lastEmitted tracking: skip rebuild when change was self-emitted (add/remove)
 *                   buildList() extracted from ngOnInit for reuse
 * 04/02/2026 mir0n  calle(): added subCmd, selectMode
+* 04/17/2026 mir0n  import consolidation
 */
 import {
     AfterViewInit,
@@ -45,10 +46,12 @@ import { DataSource } from '@angular/cdk/collections';
 /*  
 import { EsqNodeType, EsqExplorerCallApi } from '@mir0n-pro/esquire.ui/api';
 */
-import {EsqObjectKind} from 'src/esquire.ui/api/EsqObjectKind';
-import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
-import {EsqObjectKindFactory} from "src/esquire.ui/api/EsqObjectKindFactory";
-import {EsqNewMenuItem} from "../api/EsqContextMenuBuilder";
+import {
+    EsqObjectKind,
+    EsqExplorerCallApi,
+    EsqObjectKindFactory,
+    EsqNewMenuItem
+} from '@mir0n-pro/esquire.ui/api';
 
   @Component({
   selector: 'esq-tab-ikn-list',

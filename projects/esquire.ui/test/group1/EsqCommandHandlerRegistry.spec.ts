@@ -6,8 +6,8 @@
 *
 * History :
 */
-import { EsqCommandHandlerRegistry } from 'src/esquire.ui/components/commands/EsqCommandHandlerRegistry';
-import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext } from 'src/esquire.ui/api/EsqEntityCommandHandler';
+import { EsqCommandHandlerRegistry } from '../../components/commands/EsqCommandHandlerRegistry';
+import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext } from '../../api/EsqEntityCommandHandler';
 
 function makeHandler(cmd: string): EsqEntityCommandHandler {
     return {

@@ -24,6 +24,7 @@
 * 03/20/2026 mir0n  entity kind normalized to even (handles link-variant kinds)
 * 03/27/2026 mir0n  EsqDialogResizeDirective added to imports
 * 04/07/2026 mir0n  givenEntityKind set from data.nodeKind (pre-normalized by doNodeCommand)
+* 04/17/2026 mir0n  import consolidation
 */
 
 import {Component, Inject, ViewEncapsulation} from '@angular/core';
@@ -39,11 +40,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common'
 import {MatTableModule } from '@angular/material/table';
 
-import {EsqObjectKindFactory} from 'src/esquire.ui/api/EsqObjectKindFactory';
+import {
+    EsqObjectKindFactory,
+    EsqObjectKind,
+    EsqTreeNode,
+    EsqNodeStatusFactory
+} from '@mir0n-pro/esquire.ui/api';
 import {EsqTabFieldComponent} from "./EsqTabFieldComponent";
-import {EsqObjectKind} from 'src/esquire.ui/api/EsqObjectKind';
-import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
-import {EsqNodeStatusFactory} from 'src/esquire.ui/api/EsqNodeStatusFactory';
 import {FormsModule} from "@angular/forms";
 import {EsqEntityDetailsDialog} from "./EsqEntityDetailsDialog";
 

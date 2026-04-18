@@ -6,6 +6,7 @@
 *
 *  History:
 * 02/18/2026 mir0n  extracted from EsqUtils
+* 04/17/2026 mir0n  moved from components to api
 */
 export interface EsqValidationError {
     fieldName: string;

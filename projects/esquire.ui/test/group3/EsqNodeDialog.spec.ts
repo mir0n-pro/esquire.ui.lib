@@ -9,11 +9,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { EsqNodeDialog } from 'src/esquire.ui/components/EsqNodeDialog';
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
-import { EsqObjectKind } from 'src/esquire.ui/api/EsqObjectKind';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
-import { EsqNodeStatusFactory } from 'src/esquire.ui/api/EsqNodeStatusFactory';
+import { EsqNodeDialog } from '../../components/EsqNodeDialog';
+import { EsqObjectKindFactory } from '../../api/EsqObjectKindFactory';
+import { EsqObjectKind } from '../../api/EsqObjectKind';
+import { EsqTreeNode } from '../../api/EsqTreeNode';
+import { EsqNodeStatusFactory } from '../../api/EsqNodeStatusFactory';
 
 describe('EsqNodeDialog', () => {
     var fixture: ComponentFixture<EsqNodeDialog>;

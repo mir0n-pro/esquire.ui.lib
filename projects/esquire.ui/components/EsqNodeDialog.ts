@@ -8,6 +8,7 @@
 * 02/04/2024 miron renamed with EsqNodeDialog (was EsqNodeDetailsDialog)
 * 03/27/2026 mir0n  EsqDialogResizeDirective added; userId field for dialog position persistence
 * 03/31/2026 mir0n  ESC key closes dialog
+* 04/17/2026 mir0n  import consolidation
 */
 import {AfterViewInit,
   Component,
@@ -30,11 +31,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common'
 import {MatTableModule } from '@angular/material/table';
-/*
-import { EsqTreeNode , EsqNodeStatusFactory } from '@mir0n-pro/esquire.ui/api';
-*/
-import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
-import {EsqNodeStatusFactory} from 'src/esquire.ui/api/EsqNodeStatusFactory';
+import {EsqTreeNode, EsqNodeStatusFactory} from '@mir0n-pro/esquire.ui/api';
 
   @Component({
   selector: 'details-dialog',

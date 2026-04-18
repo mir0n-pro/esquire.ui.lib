@@ -7,13 +7,18 @@
 * History :
 * 04/01/2026 mir0n  initial: delete command handler extracted from EsqExplorerCallApiMill
 * 04/07/2026 mir0n  use context.nodeKind / context.entityKind
+* 04/17/2026 mir0n  import consolidation
 */
 import { firstValueFrom } from 'rxjs';
-import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext } from '../../api/EsqEntityCommandHandler';
-import { EsqExplorerCallApi } from '../../api/EsqExplorerCallApi';
-import { EsqTreeNode } from '../../api/EsqTreeNode';
-import { EsqRestApi } from '../../api/EsqRestApi';
-import { EsqUtils } from '../EsqUtils';
+import {
+    EsqEntityCommandHandler,
+    EsqEntityCommandContext,
+    EsqNodeCommandContext,
+    EsqExplorerCallApi,
+    EsqTreeNode,
+    EsqRestApi,
+    EsqUtils
+} from '@mir0n-pro/esquire.ui/api';
 
 /**
  * Handler for CMD_DELETE command

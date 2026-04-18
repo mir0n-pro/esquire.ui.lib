@@ -7,9 +7,10 @@
 * History :
 * 04/12/2026 mir0n  initial: account-picker tree datasource interface
 * 04/14/2026 mir0n  findById split into findByNodeId / findByEntityId
+* 04/17/2026 mir0n  import consolidation
 */
 import { Observable } from 'rxjs';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
+import { EsqTreeNode } from '@mir0n-pro/esquire.ui/api';
 
 /**
  * Interface for the entity-picker tree datasource.

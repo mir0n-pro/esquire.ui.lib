@@ -9,7 +9,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { EsqSingleEntryDialog } from 'src/esquire.ui/components/EsqSingleEntryDialog';
+import { EsqSingleEntryDialog } from '../../components/EsqSingleEntryDialog';
 
 describe('EsqSingleEntryDialog', () => {
     var fixture: ComponentFixture<EsqSingleEntryDialog>;

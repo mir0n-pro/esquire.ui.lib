@@ -7,6 +7,7 @@
 * History :
 * 04/12/2026 mir0n  initial: generic entity picker dialog;
 * 04/14/2026 mir0n  onSelect() normalizes kind via EsqObjectKindFactory.normalize(); preSelectedId protected; canSelect() cleanup
+* 04/17/2026 mir0n  import consolidation
 */
 import {
     AfterViewInit,
@@ -19,19 +20,22 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { EsqExplorerCallApi, EsqExplorerHostDummy } from 'src/esquire.ui/api/EsqExplorerCallApi';
+import {
+    EsqExplorerCallApi,
+    EsqExplorerHostDummy,
+    EsqTreeNode,
+    EsqObjectKindFactory
+} from '@mir0n-pro/esquire.ui/api';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { MatTree, MatTreeNode, MatTreeNodeDef, MatTreeNodePadding } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
-import { EsqDialogResizeDirective } from 'src/esquire.ui/components/EsqDialogResizeDirective';
+import { EsqDialogResizeDirective } from '@mir0n-pro/esquire.ui/components';
 import { EsqFlatTreeSelector } from '../EsqFlatTreeSelector';
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
 
-export { EsqFlatTreeSelector } from '../EsqFlatTreeSelector';
+export type { EsqFlatTreeSelector } from '../EsqFlatTreeSelector';
 
 @Component({
     selector: 'esq-select-entity-dialog',

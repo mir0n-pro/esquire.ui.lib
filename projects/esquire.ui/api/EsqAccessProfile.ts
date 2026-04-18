@@ -12,9 +12,10 @@
 * 04/07/2026 mir0n  isCommandAllowed(): use EsqObjectKindFactory.normalize()
 * 04/10/2026 mir0n  static readonly FLAG_INDEX replaced with customizable flagIndexes
 *                   added static addFlagIndex()
+* 04/17/2026 mir0n  import path fix: EsqUtils
 */
 import {EsqExplorerCallApi} from './EsqExplorerCallApi';
-import {EsqUtils} from "../components/EsqUtils";
+import {EsqUtils} from "./EsqUtils";
 import {EsqObjectKindFactory} from './EsqObjectKindFactory';
 import {EsqObjectKind} from "./EsqObjectKind";
 export class EsqRole {

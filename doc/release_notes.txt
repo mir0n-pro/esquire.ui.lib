@@ -1,5 +1,10 @@
 esquire.ui node.js library of components
 
+v1.2.2-2604.1721  Public API expansion; distribution assets; yalc workflow
+   :Improvement:Tune code layering - EsqUtils, EsqValidationError moved from components to api
+   :Improvement:Import consolidation across library source files
+   :Improvement: Public API expansion; ng-package.json assets; yalc workflow scripts
+
 --- merged with esquire\explorer project ---
 v1.2.2-2604.1712 Tuning of field types: image, tablist
 

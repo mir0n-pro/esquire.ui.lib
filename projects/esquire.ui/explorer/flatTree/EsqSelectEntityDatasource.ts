@@ -7,14 +7,14 @@
 * History :
 * 04/12/2026 mir0n  initial: generic tree-selector datasource; wraps EsqTreeViewDatasource;
 * 04/14/2026 mir0n  findByNodeId / findByEntityId split; findByEntityId expression corrected
+* 04/17/2026 mir0n  import consolidation
 */
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
-import { EsqRestApi } from 'src/esquire.ui/api/EsqRestApi';
+import { EsqTreeNode, EsqRestApi } from '@mir0n-pro/esquire.ui/api';
 import { EsqTreeViewDatasource } from './EsqTreeViewDatasource';
 import { EsqFlatTreeSelector } from './EsqFlatTreeSelector';
 
-export { EsqFlatTreeSelector, EsqFlatTreeSelectorFactory } from './EsqFlatTreeSelector';
+export type { EsqFlatTreeSelector, EsqFlatTreeSelectorFactory } from './EsqFlatTreeSelector';
 
 /**
  * Generic datasource for a filtered tree-picker dialog.

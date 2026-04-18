@@ -16,6 +16,7 @@
 *                   added data-field attributes on all inputs
 * 03/01/2026 mir0n  added provideNativeDateAdapter() provider
 * 03/03/2026 mir0n  added TextFieldModule for cdkTextareaAutosize (text field type)
+* 04/17/2026 mir0n  import consolidation
 */
 import {AfterViewInit, 
   Component, 
@@ -32,10 +33,12 @@ import {MatTableModule, MatTableDataSource, MatRow } from '@angular/material/tab
 /*
 import { EsqNodeType, EsqExplorerCallApi } from '@mir0n-pro/esquire.ui/api';
 */
-import {EsqObjectKind} from 'src/esquire.ui/api/EsqObjectKind';
-import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
-import {EsqUtils} from './EsqUtils';
-import {EsqObjectKindFactory} from "src/esquire.ui/api/EsqObjectKindFactory";
+import {
+    EsqObjectKind,
+    EsqExplorerCallApi,
+    EsqUtils,
+    EsqObjectKindFactory
+} from '@mir0n-pro/esquire.ui/api';
 import {EsqTabIknListComponent} from "./EsqTabIknListComponent";
 import {EsqTabIknfTableComponent} from "./EsqTabIknfTableComponent";
 import {EsqTabStringComponent} from "./EsqTabStringComponent";

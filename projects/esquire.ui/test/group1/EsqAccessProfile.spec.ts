@@ -6,10 +6,10 @@
 *
 * History :
 */
-import { EsqAccessProfile } from 'src/esquire.ui/api/EsqAccessProfile';
-import { EsqUtils } from 'src/esquire.ui/components/EsqUtils';
-import { EsqExplorerCallApi } from 'src/esquire.ui/api/EsqExplorerCallApi';
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
+import { EsqAccessProfile } from '../../api/EsqAccessProfile';
+import { EsqUtils } from '../../api/EsqUtils';
+import { EsqExplorerCallApi } from '../../api/EsqExplorerCallApi';
+import { EsqObjectKindFactory } from '../../api/EsqObjectKindFactory';
 
 describe('EsqAccessProfile', () => {
 

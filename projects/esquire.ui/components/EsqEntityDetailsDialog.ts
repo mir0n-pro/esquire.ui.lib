@@ -37,6 +37,7 @@
 * 04/08/2026 mir0n  EsqEntityDetailsDialog extends EsqExplorerHostDummy
 *                   handle EsqExplorerHost.setLoading()
 *                   saving() sygnal cleanup
+* 04/17/2026 mir0n  import consolidation
 */
 
 import {AfterViewChecked,
@@ -62,25 +63,18 @@ import { MatDividerModule } from '@angular/material/divider';
 import { catchError, EMPTY, finalize, Observable, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common'
 import {MatTableModule } from '@angular/material/table';
-/*
-import { EsqNodeType
-  , EsqNodeTypeFactory
-  , EsqRestApi
-  , EsqTreeNode
-  , EsqNodeStatusFactory
-  , EsqExplorerCallApi
-  , EsqDictionaryApi, EsqEntityLayer
+import {
+    EsqObjectKindFactory,
+    EsqRestApi,
+    EsqExplorerCallApi,
+    EsqExplorerHost,
+    EsqExplorerHostDummy,
+    EsqDictionaryApi,
+    EsqEntityLayer,
+    EsqUtils,
+    EsqValidationError
 } from '@mir0n-pro/esquire.ui/api';
-*/
-
-import {EsqObjectKindFactory} from 'src/esquire.ui/api/EsqObjectKindFactory';
-import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
-import {EsqExplorerCallApi, EsqExplorerHost, EsqExplorerHostDummy} from 'src/esquire.ui/api/EsqExplorerCallApi';
-import {EsqDictionaryApi} from 'src/esquire.ui/api/EsqDictionaryApi';
-import {EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
 import {EsqTabFieldComponent} from "./EsqTabFieldComponent";
-import {EsqUtils} from "./EsqUtils";
-import {EsqValidationError} from "./EsqValidationError";
 
   @Component({
   selector: 'details-dialog',

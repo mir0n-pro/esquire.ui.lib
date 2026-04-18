@@ -10,10 +10,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { EsqAccessProfileDialog } from 'src/esquire.ui/components/EsqAccessProfileDialog';
-import { EsqRestApi } from 'src/esquire.ui/api/EsqRestApi';
-import { EsqDictionaryApi } from 'src/esquire.ui/api/EsqDictionaryApi';
-import { EsqExplorerCallApi } from 'src/esquire.ui/api/EsqExplorerCallApi';
+import { EsqAccessProfileDialog } from '../../components/EsqAccessProfileDialog';
+import { EsqRestApi } from '../../api/EsqRestApi';
+import { EsqDictionaryApi } from '../../api/EsqDictionaryApi';
+import { EsqExplorerCallApi } from '../../api/EsqExplorerCallApi';
 
 describe('EsqAccessProfileDialog', () => {
     var fixture: ComponentFixture<EsqAccessProfileDialog>;

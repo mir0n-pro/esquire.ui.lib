@@ -6,7 +6,7 @@
 *
 * History :
 */
-import { EsqObjectKind } from 'src/esquire.ui/api/EsqObjectKind';
+import { EsqObjectKind } from '../../api/EsqObjectKind';
 
 describe('EsqObjectKind', () => {
 

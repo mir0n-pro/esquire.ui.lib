@@ -10,6 +10,7 @@
 * 03/26/2026 mir0n  confirmDlg() replaces alert()/confirm(); callApi added
 * 03/27/2026 mir0n  EsqDialogResizeDirective added to imports
 * 03/28/2026 mir0n  inject dictionary defaults for main entity and subentities in ngOnInit()
+* 04/17/2026 mir0n  import consolidation
 */
 
 import {
@@ -30,13 +31,16 @@ import { catchError, firstValueFrom, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 
-import {EsqObjectKindFactory} from 'src/esquire.ui/api/EsqObjectKindFactory';
+import {
+    EsqObjectKindFactory,
+    EsqUtils,
+    EsqValidationError,
+    EsqExplorerCallApi,
+    EsqEntityField,
+    EsqEntityLayer
+} from '@mir0n-pro/esquire.ui/api';
 import {EsqTabFieldComponent} from './EsqTabFieldComponent';
-import {EsqUtils} from './EsqUtils';
-import {EsqValidationError} from './EsqValidationError';
 import {EsqEntityDetailsDialog} from './EsqEntityDetailsDialog';
-import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
-import {EsqEntityField, EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
 
 @Component({
   selector: 'create-entity-dialog',

@@ -30,33 +30,27 @@
 *                   doEntityCommand() → context.entityKind, doCreate(); use EsqObjectKindFactory.normalize()
 * 04/08/2026 mir0n  ExplorerHost registration redesigned : fanout host events to any number of registered hosts
 * 04/12/2026 mir0n  String() normalization for entityId in calle() command context
+* 04/17/2026 mir0n  import consolidation
 */
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { EsqCreateEntityDialog } from "./EsqCreateEntityDialog";
 import { EsqConfirmDialog } from "./EsqConfirmDialog";
-import {EsqObjectKind} from 'src/esquire.ui/api/EsqObjectKind';
-
-/*
-import { EsqDictionaryApi
-  , EsqExplorerCallApi
-  , EsqRestApi
-  , EsqTreeNode 
-} from "@mir0n-pro/esquire.ui/api";
-*/
-import {EsqDictionaryApi} from 'src/esquire.ui/api/EsqDictionaryApi';
-import {EsqExplorerCallApi, EsqExplorerHost} from 'src/esquire.ui/api/EsqExplorerCallApi';
-import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
-import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
-import {EsqAccessProfile} from "src/esquire.ui/api/EsqAccessProfile";
-import {EsqUtils} from "./EsqUtils";
-import {EsqObjectKindFactory} from 'src/esquire.ui/api/EsqObjectKindFactory';
-import {EsqCommandHandlerRegistry} from "./commands/EsqCommandHandlerRegistry";
 import {
+    EsqObjectKind,
+    EsqDictionaryApi,
+    EsqExplorerCallApi,
+    EsqExplorerHost,
+    EsqRestApi,
+    EsqTreeNode,
+    EsqAccessProfile,
+    EsqUtils,
+    EsqObjectKindFactory,
     EsqEntityCommandHandler,
     EsqEntityCommandContext,
     EsqNodeCommandContext,
     SelectMode
-} from "src/esquire.ui/api/EsqEntityCommandHandler";
+} from '@mir0n-pro/esquire.ui/api';
+import {EsqCommandHandlerRegistry} from "./commands/EsqCommandHandlerRegistry";
 import {EsqKeyCommandHandler} from "./commands/EsqKeyCommandHandler";
 import {EsqDefaultCommandHandler} from "./commands/EsqDefaultCommandHandler";
 import {EsqDeleteCommandHandler} from "./commands/EsqDeleteCommandHandler";

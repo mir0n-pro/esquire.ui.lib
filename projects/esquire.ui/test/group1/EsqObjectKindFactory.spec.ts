@@ -6,8 +6,8 @@
 *
 * History :
 */
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
-import { EsqObjectKind } from 'src/esquire.ui/api/EsqObjectKind';
+import { EsqObjectKindFactory } from '../../api/EsqObjectKindFactory';
+import { EsqObjectKind } from '../../api/EsqObjectKind';
 
 describe('EsqObjectKindFactory', () => {
 

@@ -6,7 +6,7 @@
 *
 * History :
 */
-import { EsqTreeNodeDto } from 'src/esquire.ui/api/EsqTreeNodeDto';
+import { EsqTreeNodeDto } from '../../api/EsqTreeNodeDto';
 
 describe('EsqTreeNodeDto', () => {
 

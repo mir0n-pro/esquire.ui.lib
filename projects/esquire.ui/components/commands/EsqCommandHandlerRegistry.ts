@@ -7,8 +7,9 @@
 * History :
 * 04/01/2026 mir0n  initial: command handler registry for calle() dispatcher
 *                   added confirmNotImplemented callback for unregistered commands
+* 04/17/2026 mir0n  import consolidation
 */
-import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext } from '../../api/EsqEntityCommandHandler';
+import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext } from '@mir0n-pro/esquire.ui/api';
 
 /**
  * Registry for entity command handlers
