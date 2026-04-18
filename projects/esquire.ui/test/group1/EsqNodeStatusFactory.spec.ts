@@ -6,7 +6,7 @@
 *
 * History :
 */
-import { EsqNodeStatus, EsqNodeStatusFactory } from 'src/esquire.ui/api/EsqNodeStatusFactory';
+import { EsqNodeStatus, EsqNodeStatusFactory } from '../../api/EsqNodeStatusFactory';
 
 describe('EsqNodeStatusFactory', () => {
 

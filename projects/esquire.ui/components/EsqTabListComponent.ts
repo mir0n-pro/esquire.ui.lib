@@ -9,8 +9,9 @@
 * 02/13/2026 mir0n  EsqNodeType renamed with EsqObjectKind
 * 02/17/2026 mir0n  use CMD_DEFAULT constant from EsqExplorerCallApi
 * 04/02/2026 mir0n  calle(): added subCmd, selectMode
+* 04/17/2026 mir0n  import consolidation
 */
-import {AfterViewInit, 
+import {AfterViewInit,
   Component, 
   ElementRef, 
   Input, 
@@ -29,8 +30,7 @@ import { DataSource } from '@angular/cdk/collections';
 /*  
 import { EsqNodeType, EsqExplorerCallApi } from '@mir0n-pro/esquire.ui/api';
 */
-import {EsqObjectKind} from 'src/esquire.ui/api/EsqObjectKind';
-import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
+import {EsqObjectKind, EsqExplorerCallApi} from '@mir0n-pro/esquire.ui/api';
 
   @Component({
   selector: 'esq-tab-list',

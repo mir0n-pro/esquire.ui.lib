@@ -11,6 +11,7 @@
 *                   added dictionaryFromCache() public method
 * 03/28/2026 mir0n  loading Set → loadingMap: concurrent callers await the same in-flight Promise
 * 04/07/2026 mir0n  entityKind naming (was entity_kind)
+* 04/17/2026 mir0n  import consolidation
 */
 import {firstValueFrom, from, Observable, of} from 'rxjs';
 /*
@@ -20,13 +21,15 @@ import { EsqDictionaryApi
     , EsqRestApi
 } from '@mir0n-pro/esquire.ui/api';
 */
-import {EsqDictionaryApi} from 'src/esquire.ui/api/EsqDictionaryApi';
-import {EsqEntityDictionary} from 'src/esquire.ui/api/EsqEntityDictionary';
-import {EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
-import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
-import {EsqUtils} from "./EsqUtils";
-import {EsqObjectKindFactory} from "../api/EsqObjectKindFactory";
-import {EsqObjectKind} from "../api/EsqObjectKind";
+import {
+    EsqDictionaryApi,
+    EsqEntityDictionary,
+    EsqEntityLayer,
+    EsqRestApi,
+    EsqUtils,
+    EsqObjectKindFactory,
+    EsqObjectKind
+} from '@mir0n-pro/esquire.ui/api';
 
 
 export class EsqDictionary implements EsqDictionaryApi {

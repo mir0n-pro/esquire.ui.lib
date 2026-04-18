@@ -6,8 +6,8 @@
 *
 * History :
 */
-import { EsqUtils } from 'src/esquire.ui/components/EsqUtils';
-import { EsqEntityLayer } from 'src/esquire.ui/api/EsqEntityDictionary';
+import { EsqUtils } from '../../api/EsqUtils';
+import { EsqEntityLayer } from '../../api/EsqEntityDictionary';
 
 describe('EsqUtils', () => {
 

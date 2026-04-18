@@ -7,10 +7,15 @@
 * History :
 * 04/01/2026 mir0n  initial: access profile command handler extracted from EsqExplorerCallApiMill
 * 04/07/2026 mir0n  use context.nodeKind / context.entityKind
+* 04/17/2026 mir0n  import consolidation
 */
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext } from '../../api/EsqEntityCommandHandler';
-import { EsqExplorerCallApi } from '../../api/EsqExplorerCallApi';
+import {
+    EsqEntityCommandHandler,
+    EsqEntityCommandContext,
+    EsqNodeCommandContext,
+    EsqExplorerCallApi
+} from '@mir0n-pro/esquire.ui/api';
 import { EsqAccessProfileDialog } from '../EsqAccessProfileDialog';
 
 /**

@@ -7,9 +7,9 @@
 * History :
 */
 import { TestBed } from '@angular/core/testing';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
-import { EsqObjectKind } from 'src/esquire.ui/api/EsqObjectKind';
+import { EsqTreeNode } from '../../api/EsqTreeNode';
+import { EsqObjectKindFactory } from '../../api/EsqObjectKindFactory';
+import { EsqObjectKind } from '../../api/EsqObjectKind';
 
 describe('EsqTreeNode', () => {
 

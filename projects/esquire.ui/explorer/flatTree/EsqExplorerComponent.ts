@@ -27,6 +27,7 @@
 * 04/12/2026 mir0n  esqDatasource @Input: accept external EsqFlatTreeDatasource; backward compatible
 * 04/13/2026 mir0n  generic submenu: EsqSubMenuItem, activeSubItems, prepareSubmenu(), canSubCmdClick(), onSubCmdClick()
 * 04/14/2026 mir0n  esqSubItemDisabled @Input callback; isSubItemDisabled() hook; prepareSubmenu(menu) param
+* 04/17/2026 mir0n  import consolidation
 */
 import {Component,
   ElementRef,
@@ -62,31 +63,33 @@ import { EsqRestApi
 } from '@mir0n-pro/esquire.ui/api';
 import { EsqResizeDirective, EsqUtils} from '@mir0n-pro/esquire.ui/components';
 */
-import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
-import {AsEsqTreeNodePipe}  from 'src/esquire.ui/api/AsEsqTreeNodePipe';
-import {EsqTreeNode}  from 'src/esquire.ui/api/EsqTreeNode';
-import {EsqExplorerCallApi, EsqExplorerHost} from 'src/esquire.ui/api/EsqExplorerCallApi';
-import {EsqColumnHeaderDef} from 'src/esquire.ui/api/EsqObjectKind';
-import {EsqNodeStatusFactory} from 'src/esquire.ui/api/EsqNodeStatusFactory';
-import {EsqResizeDirective} from 'src/esquire.ui/components/EsqResizeDirective';
-import {EsqUtils} from 'src/esquire.ui/components/EsqUtils';
 import {
+    EsqRestApi,
+    AsEsqTreeNodePipe,
+    EsqTreeNode,
+    EsqExplorerCallApi,
+    EsqExplorerHost,
+    EsqColumnHeaderDef,
+    EsqNodeStatusFactory,
+    EsqUtils,
     EsqCommandMenuItem,
     EsqContextMenuBuilder,
     EsqNewMenuItem,
-    EsqSubMenuItem,
-} from 'src/esquire.ui/api/EsqContextMenuBuilder';
+    EsqSubMenuItem
+} from '@mir0n-pro/esquire.ui/api';
+import {EsqResizeDirective} from '@mir0n-pro/esquire.ui/components';
 
 
 import { EsqFlatTreeDatasource } from './EsqFlatTreeDatasource';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
-import {EsquireService} from "../../../rest";
-import {EsqAccessProfile} from "src/esquire.ui/api/EsqAccessProfile";
+import {
+    EsqAccessProfile,
+    SelectMode,
+    EsqExplorerHostDummy
+} from "@mir0n-pro/esquire.ui/api";
 import {EsqMoveCommandHandler} from "./components/EsqMoveCommandHandler";
-import {SelectMode} from "../../api/EsqEntityCommandHandler";
-import {EsqExplorerHostDummy} from "../../api/EsqExplorerCallApi";
 
 
 @Component({

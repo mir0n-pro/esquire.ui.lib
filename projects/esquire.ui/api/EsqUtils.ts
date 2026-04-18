@@ -1,7 +1,7 @@
 
 /*
 *  Esquire frameworks (tm)
-* 
+*
 *  Copyright(c) 2001, 2025 mir0n&co www.mir0n.me
 *  mailto:mir0n.the.programmer@gmail.com
 *
@@ -18,9 +18,10 @@
 *                   removed delay()
 *                   added asynchDelay()/observeDelay()
 *                   added observeWithDelay()
+* 04/17/2026 mir0n  moved from components to api
 */
 import { concat, EMPTY, ignoreElements, Observable, timer } from 'rxjs';
-import {EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
+import {EsqEntityLayer} from './EsqEntityDictionary';
 import {EsqValidationError} from './EsqValidationError';
 export class EsqUtils {
  public static DEBUG:boolean = false;

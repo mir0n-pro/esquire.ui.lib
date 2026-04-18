@@ -8,15 +8,21 @@
 * 04/01/2026 mir0n  initial: move command handler extracted from EsqExplorerComponent
 * 04/07/2026 mir0n  use context.nodeKind / context.entityKind; thread nodeKind to EsqMoveDialog
 * 04/12/2026 mir0n  use EsqFlatTreeSelectorFactory; pass selectorFactory to EsqMoveDialog
+* 04/17/2026 mir0n  import consolidation
 */
 import { MatDialog } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
-import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext, SelectMode } from 'src/esquire.ui/api/EsqEntityCommandHandler';
-import { EsqExplorerCallApi } from 'src/esquire.ui/api/EsqExplorerCallApi';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
+import {
+    EsqEntityCommandHandler,
+    EsqEntityCommandContext,
+    EsqNodeCommandContext,
+    SelectMode,
+    EsqExplorerCallApi,
+    EsqTreeNode,
+    EsqRestApi
+} from '@mir0n-pro/esquire.ui/api';
 import { EsqMoveDialog } from './EsqMoveDialog';
 import { EsqFlatTreeSelectorFactory } from '../EsqFlatTreeSelector';
-import { EsqRestApi } from 'src/esquire.ui/api/EsqRestApi';
 
 /**
  * Handler for CMD_MOVE command

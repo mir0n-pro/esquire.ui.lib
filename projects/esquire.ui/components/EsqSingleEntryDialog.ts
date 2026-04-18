@@ -9,6 +9,7 @@
 * 02/05/2026 mir0n use EsqTabFieldComponent
 * 03/27/2026 mir0n  EsqDialogResizeDirective added; userId field for dialog position persistence
 * 03/31/2026 mir0n  ESC key closes dialog
+* 04/17/2026 mir0n  import consolidation
 */
 import {AfterViewInit,
   Component,
@@ -33,10 +34,7 @@ import { firstValueFrom, from, lastValueFrom, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common'
 import {MatTableModule } from '@angular/material/table';
 
-/*
-import { EsqEntityLayer } from '@mir0n-pro/esquire.ui/api';
-*/
-import {EsqEntityLayer} from 'src/esquire.ui/api/EsqEntityDictionary';
+import {EsqEntityLayer} from '@mir0n-pro/esquire.ui/api';
 
 import {EsqTabFieldComponent} from "./EsqTabFieldComponent";
 

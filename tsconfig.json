@@ -6,6 +6,10 @@
     "paths": {
       "esquire.ui": ["./projects/esquire.ui/public-api.ts"],
       "esquire.ui/*": ["./projects/esquire.ui/*/public-api.ts"],
+      "@mir0n-pro/esquire.ui": ["./projects/esquire.ui/public-api.ts"],
+      "@mir0n-pro/esquire.ui/api": ["./projects/esquire.ui/api/public-api.ts"],
+      "@mir0n-pro/esquire.ui/components": ["./projects/esquire.ui/components/public-api.ts"],
+      "@mir0n-pro/esquire.ui/explorer/flatTree": ["./projects/esquire.ui/explorer/flatTree/public-api.ts"],
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -15,6 +19,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve"

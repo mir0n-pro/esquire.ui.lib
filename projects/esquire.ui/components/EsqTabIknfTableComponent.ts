@@ -8,15 +8,16 @@
 * 02/04/2026 mir0n  no "entityKind" field anymore
 * 02/12/2026 mir0n  EsqNodeType in explicit file
 * 02/13/2026 mir0n  EsqNodeType renamed with EsqObjectKind
+* 04/17/2026 mir0n  import consolidation
 */
-import {AfterViewInit, 
-  Component, 
-  ElementRef, 
-  Input, 
+import {AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
   OnDestroy,
-  OnInit, 
-  QueryList, 
-  ViewChildren, 
+  OnInit,
+  QueryList,
+  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import { MatButtonModule} from '@angular/material/button';
@@ -28,9 +29,12 @@ import { DataSource } from '@angular/cdk/collections';
 /*  
 import { EsqNodeType, EsqExplorerCallApi } from '@mir0n-pro/esquire.ui/api';
 */
-import {EsqColumnHeaderDef, EsqObjectKind} from 'src/esquire.ui/api/EsqObjectKind';
-import {EsqExplorerCallApi} from 'src/esquire.ui/api/EsqExplorerCallApi';
-import {EsqObjectKindFactory} from "src/esquire.ui/api/EsqObjectKindFactory";
+import {
+    EsqColumnHeaderDef,
+    EsqObjectKind,
+    EsqExplorerCallApi,
+    EsqObjectKindFactory
+} from '@mir0n-pro/esquire.ui/api';
 import {EsqResizeDirective} from './EsqResizeDirective';
 
   @Component({

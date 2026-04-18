@@ -11,6 +11,7 @@
 * 04/07/2026 mir0n  movingNodeKind from data.nodeKind; use for esquireCmdMove
 * 04/12/2026 mir0n  extend EsqSelectEntityDialog; MOVE_TREE_KINDS={0,20}; drop own tree/BehaviorSubject;
 *                   callApi inherited from base (removed duplicate field)
+* 04/17/2026 mir0n  import consolidation
 */
 import {
     Component,
@@ -25,11 +26,13 @@ import { CommonModule } from '@angular/common';
 import { MatTree, MatTreeNode, MatTreeNodeDef, MatTreeNodePadding } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { firstValueFrom } from 'rxjs';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
-import { EsqRestApi } from 'src/esquire.ui/api/EsqRestApi';
-import { EsqDialogResizeDirective } from 'src/esquire.ui/components/EsqDialogResizeDirective';
-import { EsqExplorerCallApi } from 'src/esquire.ui/api/EsqExplorerCallApi';
-import { EsqUtils } from 'src/esquire.ui/components/EsqUtils';
+import {
+    EsqTreeNode,
+    EsqRestApi,
+    EsqExplorerCallApi,
+    EsqUtils
+} from '@mir0n-pro/esquire.ui/api';
+import { EsqDialogResizeDirective } from '@mir0n-pro/esquire.ui/components';
 import { EsqSelectEntityDialog } from './EsqSelectEntityDialog';
 
 @Component({

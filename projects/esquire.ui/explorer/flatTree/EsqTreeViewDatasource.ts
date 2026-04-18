@@ -7,6 +7,7 @@
 *  History:
 * 02/13/2026 mir0n treeFlags removed from TreeNode
 * 03/31/2026 mir0n  getAll(): returns copy of internal node list
+* 04/17/2026 mir0n  import consolidation
 */
 import {CollectionViewer, DataSource } from "@angular/cdk/collections";
 import {BehaviorSubject, firstValueFrom, Observable} from 'rxjs';
@@ -14,9 +15,11 @@ import {BehaviorSubject, firstValueFrom, Observable} from 'rxjs';
 import {EsqTreeNode, EsqRestApi} from '@mir0n-pro/esquire.ui/api';
 import {EsqUtils} from '@mir0n-pro/esquire.ui/components';
 */
-import {EsqTreeNode} from 'src/esquire.ui/api/EsqTreeNode';
-import {EsqRestApi} from 'src/esquire.ui/api/EsqRestApi';
-import {EsqUtils} from 'src/esquire.ui/components/EsqUtils';
+import {
+    EsqTreeNode,
+    EsqRestApi,
+    EsqUtils
+} from '@mir0n-pro/esquire.ui/api';
 
 export class EsqTreeViewDatasource implements DataSource<EsqTreeNode> {
   private SIZE_REQUESTED = 10;

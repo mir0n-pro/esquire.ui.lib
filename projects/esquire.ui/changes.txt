@@ -1,6 +1,83 @@
 Esquire Frameworks(tm) 2.0
 esquire.ui node.js library of components
 
+04/17/2026 mir0n  EsqUtils, EsqValidationError moved from components to api
+api\EsqUtils.ts
+  - moved from components to api
+api\EsqValidationError.ts
+  - moved from components to api
+
+04/17/2026 mir0n  Import consolidation across library source files
+api\EsqAccessProfile.ts
+  - import path fix: EsqUtils
+components\EsqAccessProfileDialog.ts
+  - import consolidation
+components\EsqConfirmDialog.ts
+  - import consolidation
+components\EsqCreateEntityDialog.ts
+  - import consolidation
+components\EsqDictionary.ts
+  - import consolidation
+components\EsqEntityDetailsDialog.ts
+  - import consolidation
+components\EsqExplorerCallApiMill.ts
+  - import consolidation
+components\EsqNodeDetailsDialog.ts
+  - import consolidation
+components\EsqNodeDialog.ts
+  - import consolidation
+components\EsqSingleEntryDialog.ts
+  - import consolidation
+components\EsqTabFieldComponent.ts
+  - import consolidation
+components\EsqTabIknListComponent.ts
+  - import consolidation
+components\EsqTabIknfTableComponent.ts
+  - import consolidation
+components\EsqTabListComponent.ts
+  - import consolidation
+components\commands\EsqCommandHandlerRegistry.ts
+  - import consolidation
+components\commands\EsqDefaultCommandHandler.ts
+  - import consolidation
+components\commands\EsqDeleteCommandHandler.ts
+  - import consolidation
+components\commands\EsqKeyCommandHandler.ts
+  - import consolidation
+explorer\flatTree\EsqExplorerComponent.ts
+  - import consolidation
+explorer\flatTree\EsqFlatTreeDatasource.ts
+  - import consolidation
+explorer\flatTree\EsqFlatTreeSelector.ts
+  - import consolidation
+explorer\flatTree\EsqListViewDatasource.ts
+  - import consolidation
+explorer\flatTree\EsqSelectEntityDatasource.ts
+  - import consolidation
+explorer\flatTree\EsqTreeViewDatasource.ts
+  - import consolidation
+explorer\flatTree\components\EsqMoveCommandHandler.ts
+  - import consolidation
+explorer\flatTree\components\EsqMoveDialog.ts
+  - import consolidation
+explorer\flatTree\components\EsqSelectEntityDialog.ts
+  - import consolidation
+
+04/17/2026 mir0n  Public API expansion; ng-package.json assets; yalc workflow scripts
+ng-package.json
+  - assets[]: EsqDetailsDialog.scss, loading.16.gif, EsqSelectEntityDialog.html,
+    EsqSelectEntityDialog.scss declared for distribution
+components\public-api.ts
+  + export EsqTabFieldComponent
+  + export EsqSingleEntryDialog
+explorer\flatTree\public-api.ts
+  + export EsqFlatTreeSelector
+  + export EsqFlatTreeDatasource
+  + export EsqSelectEntityDialog (from components/EsqSelectEntityDialog)
+package.json
+  + yalc:publish script: ng build && cd dist/esquire.ui && yalc publish
+  + yalc:push script:    ng build && cd dist/esquire.ui && yalc push
+
 04/15/2026 mir0n Tuning of field types: image, tablist
   EsqTabListComponent: added .esq-tab-list-elevation-z5 class
   EsqTabFieldComponent: corrected img src/alt

@@ -1,4 +1,6 @@
+export * from './EsqAccessProfile';
 export * from './EsqDictionaryApi';
+export * from './ProblemDetail';
 export * from './EsqExplorerCallApi';
 export * from './EsqRestApi';
 export * from './EsqEntityDictionary';
@@ -10,3 +12,5 @@ export * from './AsEsqTreeNodePipe';
 export * from './EsqTreeNodeDto';
 export * from './EsqContextMenuBuilder';
 export * from './EsqEntityCommandHandler';
+export * from './EsqUtils';
+export * from './EsqValidationError';

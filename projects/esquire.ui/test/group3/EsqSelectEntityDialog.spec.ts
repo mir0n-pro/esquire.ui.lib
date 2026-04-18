@@ -10,11 +10,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject } from 'rxjs';
-import { EsqSelectEntityDialog } from 'src/esquire.ui/explorer/flatTree/components/EsqSelectEntityDialog';
-import { EsqFlatTreeSelector } from 'src/esquire.ui/explorer/flatTree/EsqFlatTreeSelector';
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
-import { EsqObjectKind } from 'src/esquire.ui/api/EsqObjectKind';
-import { EsqTreeNode } from 'src/esquire.ui/api/EsqTreeNode';
+import { EsqSelectEntityDialog } from '../../explorer/flatTree/components/EsqSelectEntityDialog';
+import { EsqFlatTreeSelector } from '../../explorer/flatTree/EsqFlatTreeSelector';
+import { EsqObjectKindFactory } from '../../api/EsqObjectKindFactory';
+import { EsqObjectKind } from '../../api/EsqObjectKind';
+import { EsqTreeNode } from '../../api/EsqTreeNode';
 
 describe('EsqSelectEntityDialog', () => {
     var fixture: ComponentFixture<EsqSelectEntityDialog>;

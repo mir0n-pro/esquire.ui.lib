@@ -7,8 +7,8 @@
 * History :
 */
 import { of } from 'rxjs';
-import { EsqDictionary } from 'src/esquire.ui/components/EsqDictionary';
-import { EsqRestApi } from 'src/esquire.ui/api/EsqRestApi';
+import { EsqDictionary } from '../../components/EsqDictionary';
+import { EsqRestApi } from '../../api/EsqRestApi';
 
 function mockLayers() {
     return [

@@ -8,10 +8,10 @@
 */
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { EsqTreeViewDatasource } from 'src/esquire.ui/explorer/flatTree/EsqTreeViewDatasource';
-import { EsqRestApi } from 'src/esquire.ui/api/EsqRestApi';
-import { EsqObjectKindFactory } from 'src/esquire.ui/api/EsqObjectKindFactory';
-import { EsqObjectKind } from 'src/esquire.ui/api/EsqObjectKind';
+import { EsqTreeViewDatasource } from '../../explorer/flatTree/EsqTreeViewDatasource';
+import { EsqRestApi } from '../../api/EsqRestApi';
+import { EsqObjectKindFactory } from '../../api/EsqObjectKindFactory';
+import { EsqObjectKind } from '../../api/EsqObjectKind';
 
 describe('EsqTreeViewDatasource', () => {
     var restApi: jasmine.SpyObj<EsqRestApi>;

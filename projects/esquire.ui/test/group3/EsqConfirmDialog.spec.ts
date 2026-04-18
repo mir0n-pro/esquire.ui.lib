@@ -9,8 +9,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { EsqConfirmDialog } from 'src/esquire.ui/components/EsqConfirmDialog';
-import { EsqExplorerCallApi } from 'src/esquire.ui/api/EsqExplorerCallApi';
+import { EsqConfirmDialog } from '../../components/EsqConfirmDialog';
+import { EsqExplorerCallApi } from '../../api/EsqExplorerCallApi';
 
 describe('EsqConfirmDialog', () => {
     var fixture: ComponentFixture<EsqConfirmDialog>;

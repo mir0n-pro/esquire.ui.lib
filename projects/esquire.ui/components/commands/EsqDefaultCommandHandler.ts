@@ -7,18 +7,24 @@
 * History :
 * 04/01/2026 mir0n  initial: default entity details command handler extracted from EsqExplorerCallApiMill
 * 04/07/2026 mir0n  use context.nodeKind / context.entityKind; thread nodeKind into EsqNodeDetailsDialog data
+* 04/17/2026 mir0n  import consolidation
 */
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
-import { EsqEntityCommandHandler, EsqEntityCommandContext, EsqNodeCommandContext } from '../../api/EsqEntityCommandHandler';
-import { EsqExplorerCallApi, EsqExplorerHost } from '../../api/EsqExplorerCallApi';
-import { EsqTreeNode } from '../../api/EsqTreeNode';
+import {
+    EsqEntityCommandHandler,
+    EsqEntityCommandContext,
+    EsqNodeCommandContext,
+    EsqExplorerCallApi,
+    EsqExplorerHost,
+    EsqTreeNode,
+    EsqUtils,
+    EsqDictionaryApi,
+    EsqRestApi
+} from '@mir0n-pro/esquire.ui/api';
 import { EsqEntityDetailsDialog } from '../EsqEntityDetailsDialog';
 import { EsqNodeDialog } from '../EsqNodeDialog';
 import { EsqNodeDetailsDialog } from '../EsqNodeDetailsDialog';
-import { EsqUtils } from '../EsqUtils';
-import { EsqDictionaryApi } from '../../api/EsqDictionaryApi';
-import { EsqRestApi } from '../../api/EsqRestApi';
 
 /**
  * Handler for default entity details commands
