@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/esquire.ui",
+  "lib": {
+    "entryFile": "public-api.ts"
+  },
+  "assets": [
+    "components/EsqDetailsDialog.scss",
+    "components/loading.16.gif",
+    "explorer/flatTree/components/EsqSelectEntityDialog.html",
+    "explorer/flatTree/components/EsqSelectEntityDialog.scss"
+  ]
+}

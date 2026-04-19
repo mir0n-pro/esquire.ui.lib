@@ -1,5 +1,12 @@
 esquire.ui node.js library of components
 
+v1.2.2-2604.1917 v1.2.2 Finalization
+  doc: added doc\custom-dialog-design.md
+       added doc\esquire.ui-details.md
+       doc\yalc-vs-git.md
+       up-to-date readme.md 
+
+
 v1.2.2-2604.1721  Public API expansion; distribution assets; yalc workflow
    :Improvement:Tune code layering - EsqUtils, EsqValidationError moved from components to api
    :Improvement:Import consolidation across library source files
