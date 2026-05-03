@@ -6,6 +6,7 @@
 *
 * History :
 * 03/27/2026 mir0n  initial: Windows-style all-edge resize; [esqDialogResize]="key:user" for cookie-based position/size persistence
+* 05/03/2026 mir0n Mobile point device friendly
 */
 import {
   AfterViewInit,
@@ -53,6 +54,8 @@ export class EsqDialogResizeDirective implements AfterViewInit, OnDestroy {
   private startTop = 0;
   private startWidth = 0;
   private startHeight = 0;
+  private activeHandle: HTMLElement | null = null;
+  private activePointerId: number | null = null;
 
   constructor(
     private el: ElementRef,
@@ -83,14 +86,17 @@ export class EsqDialogResizeDirective implements AfterViewInit, OnDestroy {
     this.createHandles();
     this.restoreState();
     this.zone.runOutsideAngular(() => {
-      fromEvent<MouseEvent>(document, 'mousemove')
+      fromEvent<PointerEvent>(document, 'pointermove')
         .pipe(takeUntil(this.destroy$))
-        .subscribe(e => this.onMouseMove(e));
-      fromEvent<MouseEvent>(document, 'mouseup')
+        .subscribe(e => this.onPointerMove(e));
+      fromEvent<PointerEvent>(document, 'pointerup')
         .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.onMouseUp());
+        .subscribe(() => this.onPointerEnd());
+      fromEvent<PointerEvent>(document, 'pointercancel')
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => this.onPointerEnd());
       // Save position after drag ends (toolbar is the cdkDragHandle)
-      this.el.nativeElement.addEventListener('mouseup', () => this.saveState());
+      this.el.nativeElement.addEventListener('pointerup', () => this.saveState());
     });
   }
 
@@ -139,15 +145,17 @@ export class EsqDialogResizeDirective implements AfterViewInit, OnDestroy {
   // ────────────────────────────────────────────────────────────────────────────
 
   private createHandles(): void {
+    // Edge thickness bumped from 6 -> 10 and corners from 6 -> 14 so a finger can
+    // grab them. The 'se' grip stays a touch larger for the visible resize affordance.
     var defs = [
-      { edge: 'n',  top: '0',    left: '6px',  right: '6px',  bottom: '',    width: '',      height: '6px',  cursor: 'n-resize',  cls: ''         },
-      { edge: 's',  top: '',     left: '6px',  right: '6px',  bottom: '0',   width: '',      height: '6px',  cursor: 's-resize',  cls: ''         },
-      { edge: 'e',  top: '6px',  left: '',     right: '0',    bottom: '6px', width: '6px',   height: '',     cursor: 'e-resize',  cls: ''         },
-      { edge: 'w',  top: '6px',  left: '0',    right: '',     bottom: '6px', width: '6px',   height: '',     cursor: 'w-resize',  cls: ''         },
-      { edge: 'ne', top: '0',    left: '',     right: '0',    bottom: '',    width: '6px',   height: '6px',  cursor: 'ne-resize', cls: ''         },
-      { edge: 'nw', top: '0',    left: '0',    right: '',     bottom: '',    width: '6px',   height: '6px',  cursor: 'nw-resize', cls: ''         },
-      { edge: 'se', top: '',     left: '',     right: '0',    bottom: '0',   width: '12px',  height: '12px', cursor: 'se-resize', cls: 'esq-dialog-resize-se' },
-      { edge: 'sw', top: '',     left: '0',    right: '',     bottom: '0',   width: '6px',   height: '6px',  cursor: 'sw-resize', cls: ''         },
+      { edge: 'n',  top: '0',     left: '10px', right: '10px', bottom: '',    width: '',      height: '10px', cursor: 'n-resize',  cls: ''         },
+      { edge: 's',  top: '',      left: '10px', right: '10px', bottom: '0',   width: '',      height: '10px', cursor: 's-resize',  cls: ''         },
+      { edge: 'e',  top: '10px',  left: '',     right: '0',    bottom: '10px',width: '10px',  height: '',     cursor: 'e-resize',  cls: ''         },
+      { edge: 'w',  top: '10px',  left: '0',    right: '',     bottom: '10px',width: '10px',  height: '',     cursor: 'w-resize',  cls: ''         },
+      { edge: 'ne', top: '0',     left: '',     right: '0',    bottom: '',    width: '14px',  height: '14px', cursor: 'ne-resize', cls: ''         },
+      { edge: 'nw', top: '0',     left: '0',    right: '',     bottom: '',    width: '14px',  height: '14px', cursor: 'nw-resize', cls: ''         },
+      { edge: 'se', top: '',      left: '',     right: '0',    bottom: '0',   width: '16px',  height: '16px', cursor: 'se-resize', cls: 'esq-dialog-resize-se' },
+      { edge: 'sw', top: '',      left: '0',    right: '',     bottom: '0',   width: '14px',  height: '14px', cursor: 'sw-resize', cls: ''         },
     ];
     for (var i = 0; i < defs.length; i++) {
       var def = defs[i];
@@ -155,6 +163,7 @@ export class EsqDialogResizeDirective implements AfterViewInit, OnDestroy {
       this.renderer.setStyle(handle, 'position', 'absolute');
       this.renderer.setStyle(handle, 'z-index', '1000');
       this.renderer.setStyle(handle, 'cursor', def.cursor);
+      this.renderer.setStyle(handle, 'touch-action', 'none');
       if (def.top)    this.renderer.setStyle(handle, 'top',    def.top);
       if (def.left)   this.renderer.setStyle(handle, 'left',   def.left);
       if (def.right)  this.renderer.setStyle(handle, 'right',  def.right);
@@ -162,18 +171,18 @@ export class EsqDialogResizeDirective implements AfterViewInit, OnDestroy {
       if (def.width)  this.renderer.setStyle(handle, 'width',  def.width);
       if (def.height) this.renderer.setStyle(handle, 'height', def.height);
       if (def.cls)    this.renderer.addClass(handle, def.cls);
-      this.addHandleMousedown(handle, def.edge);
+      this.addHandlePointerdown(handle, def.edge);
       this.renderer.appendChild(this.pane, handle);
     }
   }
 
-  private addHandleMousedown(handle: HTMLElement, edge: string): void {
+  private addHandlePointerdown(handle: HTMLElement, edge: string): void {
     this.zone.runOutsideAngular(() => {
-      handle.addEventListener('mousedown', (e: MouseEvent) => this.onMouseDown(e, edge));
+      handle.addEventListener('pointerdown', (e: PointerEvent) => this.onPointerDown(e, edge, handle));
     });
   }
 
-  private onMouseDown(event: MouseEvent, edge: string): void {
+  private onPointerDown(event: PointerEvent, edge: string, handle: HTMLElement): void {
     event.preventDefault();
     event.stopPropagation();
     var rect = this.pane.getBoundingClientRect();
@@ -193,9 +202,12 @@ export class EsqDialogResizeDirective implements AfterViewInit, OnDestroy {
     this.renderer.setStyle(this.pane, 'max-height',  'none');
     this.activeEdge = edge;
     this.resizing = true;
+    this.activeHandle = handle;
+    this.activePointerId = event.pointerId;
+    try { handle.setPointerCapture(event.pointerId); } catch {}
   }
 
-  private onMouseMove(event: MouseEvent): void {
+  private onPointerMove(event: PointerEvent): void {
     if (!this.resizing) {
       return;
     }
@@ -222,10 +234,15 @@ export class EsqDialogResizeDirective implements AfterViewInit, OnDestroy {
     }
   }
 
-  private onMouseUp(): void {
+  private onPointerEnd(): void {
     if (this.resizing) {
       this.resizing = false;
       this.activeEdge = '';
+      if (this.activeHandle && this.activePointerId !== null) {
+        try { this.activeHandle.releasePointerCapture(this.activePointerId); } catch {}
+      }
+      this.activeHandle = null;
+      this.activePointerId = null;
       this.saveState();
     }
   }

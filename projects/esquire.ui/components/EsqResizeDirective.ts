@@ -7,6 +7,7 @@
 * based on https://dev.to/chintanonweb/mastering-resizable-columns-in-angular-table-a-step-by-step-guide-for-developers-4f5n
 *
 * History :
+* 05/03/2026 mir0n Mobile point device friendly
 */
 import {
   Directive,
@@ -35,6 +36,7 @@ export class EsqResizeDirective implements OnInit, OnDestroy {
   private resizer!: HTMLElement;
   private destroy$ = new Subject<void>();
   private sideNavigationMode:boolean = false;
+  private activePointerId: number | null = null;
 
   constructor(
     private el: ElementRef,
@@ -77,8 +79,9 @@ export class EsqResizeDirective implements OnInit, OnDestroy {
     this.renderer.setStyle(this.resizer, 'position', 'absolute');
     this.renderer.setStyle(this.resizer, 'right', '0');
     this.renderer.setStyle(this.resizer, 'top', '0');
-    this.renderer.setStyle(this.resizer, 'width', '5px');
+    this.renderer.setStyle(this.resizer, 'width', '8px');
     this.renderer.setStyle(this.resizer, 'cursor', 'col-resize');
+    this.renderer.setStyle(this.resizer, 'touch-action', 'none');
     if (this.sideNavigationMode) {
       const h:number = this.home.offsetHeight; 
       this.renderer.setStyle(this.resizer, 'height', `${h}px`);
@@ -93,40 +96,44 @@ export class EsqResizeDirective implements OnInit, OnDestroy {
 
   private initializeResizeListener() {
     this.zone.runOutsideAngular(() => {
-      fromEvent(this.resizer, 'mousedown')
+      fromEvent(this.resizer, 'pointerdown')
         .pipe(takeUntil(this.destroy$))
-        .subscribe((event: Event) => this.onMouseDown(event as MouseEvent));
-      fromEvent(this.resizer, 'mouseover')
+        .subscribe((event: Event) => this.onPointerDown(event as PointerEvent));
+      fromEvent(this.resizer, 'pointerover')
         .pipe(takeUntil(this.destroy$))
-        .subscribe((event: Event) => this.onMouseOver(event as MouseEvent));
-      fromEvent(document, 'mousemove')
+        .subscribe((event: Event) => this.onPointerOver(event as PointerEvent));
+      fromEvent(document, 'pointermove')
         .pipe(takeUntil(this.destroy$))
-        .subscribe((event: Event) => this.onMouseMove(event as MouseEvent));
+        .subscribe((event: Event) => this.onPointerMove(event as PointerEvent));
 
-      fromEvent(document, 'mouseup')
+      fromEvent(document, 'pointerup')
         .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.onMouseUp());
+        .subscribe(() => this.onPointerEnd());
+      fromEvent(document, 'pointercancel')
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => this.onPointerEnd());
     });
   }
 
-  private onMouseOver(event: MouseEvent):void {
+  private onPointerOver(event: PointerEvent):void {
     if (this.isResizing) return;
-//    event.preventDefault();
     if (this.sideNavigationMode) {
-      const h:number = this.home.offsetHeight; 
-      this.renderer.setStyle(this.resizer, 'height', `${h}px`);    
+      const h:number = this.home.offsetHeight;
+      this.renderer.setStyle(this.resizer, 'height', `${h}px`);
     }
     this.renderer.setStyle(this.resizer, 'border-right', '1px solid black');
   }
 
-  private onMouseDown(event: MouseEvent):void {
+  private onPointerDown(event: PointerEvent):void {
     event.preventDefault();
     this.isResizing = true;
     this.startX = event.pageX;
     this.startWidth = this.home.offsetWidth;
+    this.activePointerId = event.pointerId;
+    try { this.resizer.setPointerCapture(event.pointerId); } catch {}
   }
 
-  private onMouseMove(event: MouseEvent):void {
+  private onPointerMove(event: PointerEvent):void {
     if (!this.isResizing) return;
     const delta = event.pageX - this.startX;
     var width = Math.max(this.startWidth + delta, 10); // just in case it has no min-width defined
@@ -137,10 +144,14 @@ export class EsqResizeDirective implements OnInit, OnDestroy {
     }
   }
 
-  private onMouseUp() {
+  private onPointerEnd() {
     if (!this.isResizing) return;
     this.isResizing = false;
     this.renderer.setStyle(this.resizer, 'border-right', '0');
+    if (this.activePointerId !== null) {
+      try { this.resizer.releasePointerCapture(this.activePointerId); } catch {}
+      this.activePointerId = null;
+    }
   }
 
   ngOnDestroy() {

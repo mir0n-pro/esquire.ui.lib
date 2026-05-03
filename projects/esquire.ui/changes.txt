@@ -1,6 +1,12 @@
 Esquire Frameworks(tm) 2.0
 esquire.ui node.js library of components
 
+05/03/2026 mir0n  Mobile point device friendly
+components\EsqDialogResizeDirective.ts
+  - Mobile point device friendly
+components\EsqResizeDirective.ts
+  - Mobile point device friendly
+
 04/17/2026 mir0n  EsqUtils, EsqValidationError moved from components to api
 api\EsqUtils.ts
   - moved from components to api
