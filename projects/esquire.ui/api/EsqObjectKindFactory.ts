@@ -18,6 +18,7 @@
 * 04/08/2026 mir0n  init() corrected
 * 04/13/2026 mir0n  init() registers locally-defined kinds absent from server response
 * 04/15/2026 mir0n  pass kind title from server response
+* 05/07/2026 mir0n  normalize(): Clear the lowest bit : rounds odd kinds down to their canonical even.
 */
 
 import {EsqTreeNode} from "./EsqTreeNode";
@@ -107,7 +108,8 @@ export class EsqObjectKindFactory {
   }
 
   public static normalize(kind: number): number {
-    return Math.floor(kind / 2) * 2;
+    // Clear the lowest bit -- rounds odd kinds down to their canonical even.
+    return kind & -2;
   }
 
   public static instanceOf(kind: number): EsqObjectKind {
