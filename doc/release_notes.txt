@@ -1,5 +1,7 @@
 esquire.ui node.js library of components
 
+v1.2.3-2605.0720 normalize(): Clear the lowest bit instead use of math.floor
+
 v1.2.3-2605.0412 v1.2.3 Mobile point device friendly
 
 v1.2.2-2604.1917 v1.2.2 Finalization
