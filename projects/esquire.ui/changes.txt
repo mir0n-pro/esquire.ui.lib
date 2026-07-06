@@ -2,6 +2,12 @@ Esquire Frameworks(tm) 2.0
 esquire.ui node.js library of components
 
 
+07/06/2026 mir0n  Details dialog: focus enters the dialog on open (Esc closes without a Tab)
+components\EsqEntityDetailsDialog.html
+  - #btnClose ref on the editable/create Close button so focus enters the dialog on open
+components\EsqNodeDetailsDialog.html
+  - #btnClose ref on the editable Close button so focus enters the dialog on open
+
 05/07/2026  normalize(): Clear the lowest bit instead use of math.floor
 api\EsqObjectKindFactory.ts
     - normalize(): Clear the lowest bit : rounds odd kinds down to their canonical even.
