@@ -5,6 +5,20 @@ Angular UI component library for the **Esquire backoffice framework** — a syst
 business entities in a tree: organizations, users, accounts. Covers the classic backoffice
 feature set: entity management, permissions, onboarding, accounting operations.
 
+## v1.2.11 — complete (07/25/2026)
+
+Fix: the entity **Details** dialog now closes on **Esc** for an editable entity even without a preceding Tab -- so keyboard dismissal works the moment the dialog opens.
+
+## v1.2.3 — complete (05/08/2026)
+
+Mobile / pointer-device friendliness, plus a `normalize()` correction (clear the lowest bit rather than use `Math.floor`).<br>
+[More Details: v1.2.3 Release Report](https://github.com/mir0n-pro/esquire.ui.lib/blob/develop/doc/reports/report_v1.2.3.md)
+
+## v1.2.2 — complete (04/20/2026)
+
+First complete slice of the shared UI library: the public API, the distribution assets, and the yalc consumption workflow, delivered alongside the explorer frontend.<br>
+[More Details: v1.2.2 Release Report](https://github.com/mir0n-pro/esquire.ui.lib/blob/develop/doc/reports/report_2026_04_19_31750f3.md)
+
 ---
 
 ## Overview
