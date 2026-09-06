@@ -1,5 +1,7 @@
 esquire.ui node.js library of components
 
+v1.2.15-2609.0523 v1.2.15 -- the Access Profile dialog reports what activation note
+
 v1.2.11-2607.0600 v1.2.11 -- Details dialog closes on Esc for an editable entity without a preceding Tab
 
 v1.2.3-2605.0720 normalize(): Clear the lowest bit instead use of math.floor

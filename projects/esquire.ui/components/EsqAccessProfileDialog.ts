@@ -30,6 +30,7 @@
 * 04/08/2026 mir0n  EsqAccessProfileDialog extends EsqExplorerHostDummy
 *                   handle EsqExplorerHost.setLoading()
 * 04/17/2026 mir0n  import consolidation
+* 09/05/2026 mir0n  v1.2.15 -- activationNote signal + ACTIVATION_NOTE; onSave() reads the pre-save connect flag
 */
 import {AfterViewChecked,
   AfterViewInit,
@@ -115,6 +116,11 @@ export class EsqAccessProfileDialog extends EsqExplorerHostDummy implements OnIn
    public saving: boolean = false;
    public loading = signal(false);
 
+   private static readonly ACTIVATION_NOTE: string =
+     'Activated. Initial password "changeit". The user will be forced to update it.';
+
+   public activationNote = signal<string | null>(null);
+
   constructor(
       dialogRef: MatDialogRef<EsqAccessProfileDialog>,
       @Inject(MAT_DIALOG_DATA) data: any
@@ -168,7 +174,8 @@ export class EsqAccessProfileDialog extends EsqExplorerHostDummy implements OnIn
       if (changes) {
         EsqUtils.log('Save changes:', changes);
         var body = { id: this.id, ...changes };
-        this.saveData(body, savedTab);
+        const wasConnected: boolean = this.originalDetails?.connectFlg === 'Y';
+        this.saveData(body, savedTab, wasConnected);
       }
     }
   }
@@ -203,6 +210,7 @@ export class EsqAccessProfileDialog extends EsqExplorerHostDummy implements OnIn
   }
 
   private loadData(restoreTab?: number): void {
+    this.activationNote.set(null);
     this.details$ = this.restApi.esquireKey(this.id).pipe(
       tap(details => {
         this.details = details;
@@ -220,13 +228,17 @@ export class EsqAccessProfileDialog extends EsqExplorerHostDummy implements OnIn
     );
   }
 
-  private saveData(body: any, restoreTab?: number): void {
+  private saveData(body: any, restoreTab?: number, wasConnected: boolean = true): void {
     var snapshot = this.details;
     this.saving = true;
+    this.activationNote.set(null);
     this.details$ = this.restApi.esquireKeySave(this.id, body).pipe(
       tap(details => {
         this.details = details;
         this.originalDetails = EsqUtils.deepCopy(details);
+        if (!wasConnected && details?.connectFlg === 'Y') {
+          this.activationNote.set(EsqAccessProfileDialog.ACTIVATION_NOTE);
+        }
         if (restoreTab) {
           this.pendingTabRestore = restoreTab;
         }

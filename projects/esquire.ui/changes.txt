@@ -2,6 +2,14 @@ Esquire Frameworks(tm) 2.0
 esquire.ui node.js library of components
 
 
+09/05/2026 mir0n  v1.2.15 -- the Access Profile activation note
+components\EsqAccessProfileDialog.ts
+  - activationNote signal + ACTIVATION_NOTE; onSave() reads the pre-save connect flag
+components\EsqAccessProfileDialog.html
+  - the activation note
+components\EsqDetailsDialog.scss
+  - .esq-activation-note added
+
 07/06/2026 mir0n  Details dialog: focus enters the dialog on open (Esc closes without a Tab)
 components\EsqEntityDetailsDialog.html
   - #btnClose ref on the editable/create Close button so focus enters the dialog on open

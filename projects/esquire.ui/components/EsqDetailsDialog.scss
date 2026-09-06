@@ -2,10 +2,11 @@
 /*
 *  Esquire frameworks (tm)
 * 
-*  Copyright(c) 2001, 2025 mir0n&co www.mir0n.me
+*  Copyright(c) 2001, 2026 mir0n&co www.mir0n.pro
 *  mailto:mir0n.the.programmer@gmail.com
 *
 *  History:
+* 09/05/2026 mir0n  v1.2.15 -- .esq-activation-note added
 */
 .esq-dialog {
   resize: both;
@@ -450,6 +451,19 @@
 
   mat-dialog-actions button {
     min-width: 88px;
+  }
+
+  .esq-activation-note {
+    margin: 4px 16px 0 16px;
+    padding: 10px 12px;
+    border: 1px solid #c9190b;
+    border-left: 4px solid #c9190b;
+    border-radius: 3px;
+    background: #faeae8;
+    color: #7d1007;
+    font-size: 10pt;
+    font-weight: 500;
+    line-height: 1.35;
   }
 
   .esq-loading-div {
